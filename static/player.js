@@ -29,34 +29,42 @@ class Player {
     //     this.id = a;
     // }
     
+    // returns true if the player is infected
     getIsInfected() {
         return this.isInfected;
     }
     
+    // set whether or not the player is infected
     setIsInfected(a) {
         this.isInfected = a;
     }
     
+    // get the x coordinate of the player
     getX() {
         return this.x;
     }
     
+    // set the x coordinate of the player
     setX(a) {
         this.x = a
     }
     
+    // get the y coordinate of the player
     getY() {
         return this.y;
     }
     
+    // set the x coordinate of the player
     setY(a) {
         this.y = a;
     }
     
+    // get the name of the player
     getName() {
         return this.name;
     }
     
+    // set the name of the player
     setName(a) {
         this.name = a;
     }
