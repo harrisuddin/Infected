@@ -14,20 +14,23 @@
 <body>
     <canvas id="canvas"></canvas>
 
-    <!-- Login/Signup Modal Goes Here -->
+    <!-- Modal Starting Menu Goes Here -->
 
-    <div class="modal fade" id="" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="modalLabel">Login</h5>
+                    <h5 class="modal-title" id="modalLabel">Welcome to Infected</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
 
                 <div class="modal-body">
-                    <form>
+
+                    <!-- Buttons to show login form and instructions go here -->
+
+                    <form class="invisible">
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="username" class="form-control" id="username" aria-describedby="username" placeholder="Username">
@@ -37,6 +40,9 @@
                             <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
                     </form>
+                    <figure class="invisible" id="instructions">
+                        <!-- Instructions for the game go here -->
+                    </figure>
                 </div>
 
                 <div class="modal-footer" style="display: inline;">
@@ -54,8 +60,9 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
+        // automatically open the modal when the window loads
         $(window).on('load', function() {
-            $('#modal').modal('show');
+            $('#modal').modal('toggle');
         });
     </script>
 
