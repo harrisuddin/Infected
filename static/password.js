@@ -7,7 +7,7 @@ class Password {
     isValid() {
         if (containsSpecial(this.password)) {
             return "Error, password shouldn't contain special characters";
-        } else if (this.password < 8) {
+        } else if (this.password.length < 8) {
             return "Error, password is less than 8 characters";
         } else if (!containsNumber(this.password)) {
             return "Error, password does not have a number";
