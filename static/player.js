@@ -68,4 +68,8 @@ class Player {
     setName(a) {
         this.name = a;
     }
+
 }
+
+// export the class for use elsewhere
+module.exports = Player;
