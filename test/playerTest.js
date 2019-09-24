@@ -1,6 +1,7 @@
 var chai = require('chai');
 const Player = require('../static/player.js');
 var assert = chai.assert;
+var expect = chai.expect;
 
 describe('Player', function () {
 
@@ -60,6 +61,17 @@ describe('Player', function () {
         //player.setName("John");
         player.setIsInfected("true");
         assert.equal(player.toString(), '{"isInfected":true, "x":300, "y":300, "name":}');
+    });
+
+
+
+    it('should randomize the x and y coordinate of the player but be lower than the maximum x and y given ', function () {
+        var maxX = 100;
+        var maxY = 100;
+        var player = new Player();
+        player.randomizePos(maxX, maxY);
+        expect(player.getX() < maxX).to.be.true;
+        expect(player.getY() < maxY).to.be.true;
     });
 
 });

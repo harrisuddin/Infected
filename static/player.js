@@ -69,6 +69,11 @@ class Player {
         this.name = a;
     }
 
+    // randomly set the x and y coordinate of the player to numbers lower than the given maximum x and y
+    randomizePos(maxX, maxY) {
+
+    }
+
 }
 
 // export the class for use elsewhere
