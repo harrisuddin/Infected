@@ -1,5 +1,5 @@
 var chai = require('chai');
-const Username = require('../static/password.js');
+const Username = require('../static/username.js');
 var assert = chai.assert;
 
 describe('Username', function() {
