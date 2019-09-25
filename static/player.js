@@ -69,9 +69,10 @@ class Player {
         this.name = a;
     }
 
-    // randomly set the x and y coordinate of the player to numbers lower than the given maximum x and y
+    // randomly set the x and y coordinate of the player to numbers lower than or equal to the given maximum x and y
     randomizePos(maxX, maxY) {
-
+        this.x = Math.floor(Math.random() * maxX) + 1;
+        this.y = Math.floor(Math.random() * maxY) + 1;
     }
 
 }

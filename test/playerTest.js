@@ -65,13 +65,23 @@ describe('Player', function () {
 
 
 
-    it('should randomize the x and y coordinate of the player but be lower than the maximum x and y given ', function () {
+    it('should randomize the x and y coordinate of the player but be lower than or equal the maximum x and y given ', function () {
         var maxX = 100;
         var maxY = 100;
         var player = new Player();
+
         player.randomizePos(maxX, maxY);
-        expect(player.getX() < maxX).to.be.true;
-        expect(player.getY() < maxY).to.be.true;
+        expect(player.getX() <= maxX).to.be.true;
+        expect(player.getY() <= maxY).to.be.true;
+
+        player.setX(400);
+        player.setY(400);
+        maxX = 800;
+        maxY = 800;
+        player.randomizePos(maxX, maxY);
+        expect(player.getX() <= maxX).to.be.true;
+        expect(player.getY() <= maxY).to.be.true;
+
     });
 
 });
