@@ -26,7 +26,7 @@ class Password {
 // return true if s contains a special character
 function containsSpecial(s) {
     var specialCharacters = "<>@!#$%^&*()_+[]{}?:;|'\"\\,./~`-=";
-    for (i = 0; i < s.length; i++) {
+    for (i = 0; i < specialCharacters.length; i++) {
         if (s.indexOf(specialCharacters[i]) > -1) {
             return true;
         }
