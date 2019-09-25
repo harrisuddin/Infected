@@ -7,3 +7,7 @@ canvas {
 .invisible {
     display: none;
 }
+
+.modal-footer {
+    display: inline;
+}
