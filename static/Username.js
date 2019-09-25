@@ -5,7 +5,7 @@ class Username {
     }
 
     isValid() {
-        if (this.Username.length > 20) { //a error message will apear to the player if the user name is longer than 20 characters.
+        if (this.Username.length > 20) { //an error message will apear to the player if the user name is longer than 20 characters.
             return "Username cant be bigger than 20 characters long, please try again.";
         } esle {
             return true;
