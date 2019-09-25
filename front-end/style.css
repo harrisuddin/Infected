@@ -1,0 +1,17 @@
+canvas {
+    width: 800px;
+    height: 600px;
+    border: 5px solid black;
+}
+
+.invisible {
+    display: none;
+}
+
+.modal-footer {
+    display: inline;
+}
+
+#confirmPassword {
+    transition: 0.5s;
+}
