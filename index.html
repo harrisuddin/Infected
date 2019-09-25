@@ -20,12 +20,13 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header d-block">
-                    <h5 class="modal-title text-center" id="modalLabel" >Welcome to Infected</h5>
+                    <h5 class="modal-title text-center" id="modalLabel">Welcome to Infected</h5>
                 </div>
 
                 <div class="modal-body">
 
                     <!-- Buttons to show login form and instructions go here -->
+                    <form>
                         <div class="form-group">
                             <label for="username">Username</label>
                             <input type="username" class="form-control" id="username" aria-describedby="username" placeholder="Username">
@@ -34,10 +35,11 @@
                             <label for="password">Password</label>
                             <input type="password" class="form-control" id="password" placeholder="Password">
                         </div>
+                    </form>
                 </div>
 
-                <div class="modal-footer" style="display: inline;">
-                    <button type="submit" class="btn btn-primary">Sign Up</button>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Or Sign Up</button>
                     <button type="button" class="btn btn-primary float-right">Login</button>
                 </div>
             </div>
@@ -50,6 +52,13 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 
     <script>
+
+        // make the user unable to close the modal
+        $('#modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
         // automatically open the modal when the window loads
         $(window).on('load', function() {
             $('#modal').modal('toggle');
