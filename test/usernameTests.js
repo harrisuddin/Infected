@@ -13,7 +13,7 @@ describe('Username', function() {
         var name = new Username("");
         assert.equal(name.isValid(), "Username cant be smaller than 1 characters long, please try again.");
     });
-
+//this will test that the username is valid
     it('should return true if username is valid', function() {
         var name = new Username("Aaron");
         assert.equal(name.isValid(), true);
