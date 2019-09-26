@@ -1,0 +1,7 @@
+CREATE TABLE Users(
+Username varchar(20),
+Password varchar(32),
+PRIMARY KEY(Username)
+
+
+)
