@@ -11,5 +11,5 @@ There will be a lobby of players and one player will be randomly chosen to be th
 Each round will last two minutes or until every single player is infected,
 Each round will be out of 10 players, 1 infected and 9 non infected, we might expand the game to have different sizes of lobbies in the future. There will be a point system, every second that you survive as a non infected they will get a point, the infected player will gain 10 points per each person they get infected.
 
-The map will be free roam with small obstacles in the map
+The map will be free roam with small obstacles in the map, where the players will be able to run around. the player wont be able to see the full map, they will only be able to see 1/4 of the map as the map is bigger than the screen the camera will be locked on the play, once the player reaches a edge of the screen the camera will move with the player and they will be able to see the other part of the map.
 
