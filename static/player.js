@@ -16,7 +16,7 @@ class Player {
     toString() {
         // return '{"id":' + this.id + ', ' + '"isInfected":' + this.isInfected + ', ' + '"x":' + this.x + ', ' + '"y":' + this.y + ', ' + '"name":' + this.name + '}';
 
-        return '{"isInfected":' + this.isInfected + ', ' + '"x":' + this.x + ', ' + '"y":' + this.y + ', ' + '"name":' + this.name + '}';
+        return '{"isInfected":' + this.isInfected + ', ' + '"x":' + this.x + ', ' + '"y":' + this.y + ', ' + '"name":' + '"' + this.name + '"' + '}';
     }
     
     /* Getters and Setters */

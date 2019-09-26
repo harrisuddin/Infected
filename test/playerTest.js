@@ -53,14 +53,14 @@ describe('Player', function () {
         var player = new Player();
         player.setName("John");
         player.setIsInfected("true");
-        assert.equal(player.toString(), '{"isInfected":true, "x":300, "y":300, "name":John}');
+        assert.equal(player.toString(), '{"isInfected":true, "x":300, "y":300, "name":"John"}');
     });
 
     it('should return the player object with empty name in JSON', function () {
         var player = new Player();
         //player.setName("John");
         player.setIsInfected("true");
-        assert.equal(player.toString(), '{"isInfected":true, "x":300, "y":300, "name":}');
+        assert.equal(player.toString(), '{"isInfected":true, "x":300, "y":300, "name":""}');
     });
 
 
