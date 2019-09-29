@@ -1,6 +1,6 @@
 CREATE TABLE Users(
 username VARCHAR(20) PRIMARY KEY,
-password VARCHAR(32),
+password VARCHAR(64),
 )ENGINE=INNODB;
 
 CREATE TABLE Scores(
