@@ -1,7 +1,12 @@
 CREATE TABLE Users(
-Username varchar(20),
-Password varchar(32),
-PRIMARY KEY(Username)
+username VARCHAR(20) PRIMARY KEY,
+password VARCHAR(32),
+)ENGINE=INNODB;
+
+CREATE TABLE Scores(
+name VARCHAR(20),
+score INT,
+FOREIGN KEY(name) REFERENCES Users(username)
+)ENGINE=INNODB;
 
 
-)
