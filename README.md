@@ -2,7 +2,7 @@
 
 Infected is a simple MMOG where the infected have to chase the humans and turn them into infected.
 
-                                                          Game Plan
+# Game Plan
 
 The game is going to be similar to a tag game where there will be one player that is infected that will go around chasing the other players, if the infected player touches another player then that player will become infected, Once a player gets infected they join the infected side and try to get the other non infected players. 
 
