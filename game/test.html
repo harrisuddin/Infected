@@ -3,22 +3,20 @@
 <html>
 
 <body>
-<img style="display:none" id="playerI" src="../assets/PlayerI.PNG" alt="Player Infected">
+    <img style="display:none" id="playerI" src="../assets/PlayerI.PNG" width="40" height="30" alt="Infected Player">
+    <img style="display:none" id="playerNI" src="../assets/PlayerNI.PNG" width="40" height="30" alt="Not Infected Player">
 
-<p>Canvas:</p>
-<canvas id="myCanvas" width="240" height="297" style="border:1px solid #d3d3d3;">
-  <!-- <img id="playerI" src="../assets/PlayerI.PNG" alt="Player Infected"> -->
-</canvas>
+    <p>Canvas:</p>
+    <canvas id="myCanvas" width="300" height="300" style="border:1px solid #d3d3d3;">
+        <!-- <img id="playerI" src="../assets/PlayerI.PNG" alt="Player Infected"> -->
+    </canvas>
 
-<script>
-window.onload = function() {
-  var c = document.getElementById("myCanvas");
-  var ctx = c.getContext("2d");
-  var img = document.getElementById("playerI");
-  ctx.drawImage(img, 10, 10);
-}
-</script>
-<script src="index.js"></script>
+    <button onclick="play()">Play!</button>
+
+    <script>
+
+    </script>
+    <script src="index.js"></script>
 </body>
 
 </html>
