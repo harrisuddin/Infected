@@ -11,17 +11,22 @@
 
 <body>
     <canvas id="canvas"></canvas>
-    <div class="box">
+    <div class="box" id="startpagebox">
       <h1>Infected</h1>
       <div>
-      <input class="margin" type="text" name="FirstName" placeholder="Username"><br>
-      <input class="margin" type="text" name="Password" placeholder="Password"><br>
-      <input style="display: none" class="margin" id="signup" type="text" name="Password2" placeholder="Re-enter Password">
+      <input class="margin" id="un" type="text" placeholder="Username"><br>
+      <input class="margin" id="pw" type="text" placeholder="Password"><br>
+      <input class="margin" id="pw2" type="text" name="Password2" placeholder="Re-enter Password">
       </div>
-      <button onclick="loginfun()" class="Homebutton" id="Lbutton" type="button">LOGIN</button>
-      <button onclick="signupfun()" class="Homebutton" type="button">SIGN UP</button>
+      <input type="button" value="LOGIN" onclick="loginfun()" class="Homebutton" id="Lbutton"></input>
+      <input type="button" value="SIGN UP" onclick="signupfun()" class="Homebutton" id="Singupb"></input>
+
     </div>
 
+
+    <p style="text-align:center;" id="testun"></p>
+    <p style="text-align:center;" id="testpw"></p>
+    <p style="text-align:center;" id="testpw2"></p>
 
     <script src="buttonjs.js"></script>
 </body>
