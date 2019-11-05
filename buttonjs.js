@@ -1,7 +1,7 @@
 
-var Username = document.getElementById("un").value;
-var Password = document.getElementById("pw").value;
-var Password2 = document.getElementById("pw2").value;
+var Username;
+var Password;
+var Password2;
 var Signupvalid = true;
 
 
@@ -52,12 +52,17 @@ function loginfun() {
     document.getElementById("pw2").style.display="none";
     document.getElementById("Lbutton").value="LOGIN";
     document.getElementById("Singupb").setAttribute("onClick", "signupfun()");
-  } else {
+  }
+    if (document.getElementById("Lbutton").value="LOGIN") {
+      var Username = document.getElementById("un").value;
+      var Password = document.getElementById("pw").value;
+      var Password2 = document.getElementById("pw2").value;
   document.getElementById("testun").innerHTML = Username;
   document.getElementById("testpw").innerHTML = Password;
   document.getElementById("testpw2").innerHTML = Password2;
   document.getElementById("startpagebox").style.display="none";
-  }
+}
+
 }
 
 
