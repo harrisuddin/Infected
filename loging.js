@@ -7,6 +7,16 @@ var Signupvalid = false;
 function Startup(){
   document.getElementById("pw2").style.display="none";
   document.getElementById("myCanvas").style.display="none";
+  document.getElementById("Topnav").style.display="none";
+}
+
+function topnav() {
+  var x = document.getElementById("Topnav");
+  if (x.className === "topnav") {
+    x.className += " responsive";
+  } else {
+    x.className = "topnav";
+  }
 }
 
 //this function is to change the homepage to be able to signup the user
@@ -46,16 +56,11 @@ if (Password2=="" || Password2.length>10){
   Signupvalid = true;
 }
 
-if(Password==Password2){
-  Signupvalid = true;
-}
-  else{
-alert("password must be same!");
-Signupvalid = false;
-}
+
   if (Signupvalid == true) {
     document.getElementById("startpagebox").style.display="none";
     document.getElementById("myCanvas").style.display="block";
+      document.getElementById("Topnav").style.display="block";
     play();
   }
 }
@@ -75,6 +80,7 @@ function loginfun() {
   document.getElementById("testpw").innerHTML = Password;
   document.getElementById("startpagebox").style.display="none";
   document.getElementById("myCanvas").style.display="block";
+    document.getElementById("Topnav").style.display="block";
   play();
 }
 
