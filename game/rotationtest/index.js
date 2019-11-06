@@ -5,12 +5,14 @@ var y = player.getY();
 var c = document.getElementById("myCanvas");
 var ctx = c.getContext("2d");
 var img = document.getElementById("playerI");
+
 var playerMovement = {
     up: false,
     down: false,
     left: false,
     right: false
 }
+
 
 function play() {
     setInterval(function () {
@@ -54,6 +56,7 @@ function update() {
                 break;
         }
     });
+    
 
     if (playerMovement.left) {
         x -= 5;
@@ -67,8 +70,11 @@ function update() {
     if (playerMovement.down) {
         y += 5;
     }
+    
 
-    var degree = returnPlayerRotation();
+    var degree = returnPlayerRotation(playerMovement);
+    //img.style = 'transform: rotate(' + returnPlayerRotation() + 'deg)';
+    //img.setAttribute("style", "transform: rotate(20deg)");
     drawPlayer(img, x, y, 75, 100, degree);
 }
 
@@ -99,45 +105,45 @@ function drawPlayer(img, x, y, width, height, deg) {
 }
 
 // Return the player rotation in degrees
-function returnPlayerRotation() {
+function returnPlayerRotation(pm) {
 
-    if (playerMovement.up) {
+    if (pm.up) {
 
-        if (playerMovement.right || playerMovement.left) {
-            // And they are pressing D
-            if (playerMovement.right) {
-                return 45;
-            }
-            // And they are pressing A
-            if (playerMovement.left) {
-                return 315;
-            }
-        } else {
+//        if (playerMovement.right || playerMovement.left) {
+//            // And they are pressing D
+//            if (playerMovement.right) {
+//                return 45;
+//            }
+//            // And they are pressing A
+//            if (playerMovement.left) {
+//                return 315;
+//            }
+//        } else {
             return 0;
-        }
+        //}
     }
 
-    if (playerMovement.down) {
+    if (pm.down) {
 
-        if (playerMovement.right || playerMovement.left) {
-            // And they are pressing D
-            if (playerMovement.right) {
-                return 135;
-            }
-            // And they are pressing A
-            if (playerMovement.left) {
-                return 225;
-            }
-        } else {
+//        if (playerMovement.right || playerMovement.left) {
+//            // And they are pressing D
+//            if (playerMovement.right) {
+//                return 135;
+//            }
+//            // And they are pressing A
+//            if (playerMovement.left) {
+//                return 225;
+//            }
+        //} else {
             return 180;
-        }
+        //}
     }
 
-    if (playerMovement.left) {
+    if (pm.left) {
         return 270;
     }
 
-    if (playerMovement.right) {
+    if (pm.right) {
         return 90;
     }
 
