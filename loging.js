@@ -6,6 +6,7 @@ var Signupvalid = false;
 
 function Startup(){
   document.getElementById("pw2").style.display="none";
+  document.getElementById("myCanvas").style.display="none";
 }
 
 //this function is to change the homepage to be able to signup the user
@@ -37,7 +38,7 @@ if (Password=="" || Password.length>10){
   Signupvalid = true;
 }
 
-if (Password=="" || Password.length>10){
+if (Password2=="" || Password2.length>10){
   alert("Re-enter Password has to be between 0 to 10 characters");
   Signupvalid = false;
 } else {
@@ -54,6 +55,8 @@ Signupvalid = false;
 }
   if (Signupvalid == true) {
     document.getElementById("startpagebox").style.display="none";
+    document.getElementById("myCanvas").style.display="block";
+    play();
   }
 }
 
@@ -68,11 +71,11 @@ function orlogin(){
 function loginfun() {
       var Username = document.getElementById("un").value;
       var Password = document.getElementById("pw").value;
-      var Password2 = document.getElementById("pw2").value;
   document.getElementById("testun").innerHTML = Username;
   document.getElementById("testpw").innerHTML = Password;
-  document.getElementById("testpw2").innerHTML = Password2;
   document.getElementById("startpagebox").style.display="none";
+  document.getElementById("myCanvas").style.display="block";
+  play();
 }
 
 
