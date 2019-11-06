@@ -1,10 +1,10 @@
 // Globals
 var player = new Player();
-var x = player.getX();
-var y = player.getY();
-var c = document.getElementById("myCanvas");
-var ctx = c.getContext("2d");
-var img = document.getElementById("playerI");
+var src = "";
+//var x = player.getX();
+//var y = player.getY();
+var ctx = document.getElementById("myCanvas").getContext("2d");
+//var img = document.getElementById("playerI");
 
 var playerMovement = {
     up: false,
@@ -12,7 +12,6 @@ var playerMovement = {
     left: false,
     right: false
 }
-
 
 function play() {
     setInterval(function () {
@@ -22,7 +21,7 @@ function play() {
 
 function update() {
     // Test
-    console.log(x + " " + y);
+    console.log(player.getX() + " " + player.getY());
 
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
@@ -59,53 +58,75 @@ function update() {
     
 
     if (playerMovement.left) {
-        x -= 5;
+        //x -= 5;
+        player.setX(player.getX() - 5);
     }
     if (playerMovement.up) {
-        y -= 5;
+        //y -= 5;
+        player.setY(player.getY() - 5);
     }
     if (playerMovement.right) {
-        x += 5;
+        //x += 5;
+        player.setX(player.getX() + 5);
     }
     if (playerMovement.down) {
-        y += 5;
+        //y += 5;
+        player.setY(player.getY() + 5);
     }
     
-
-    var degree = returnPlayerRotation(playerMovement);
+    if (src != returnPlayerRotation(playerMovement, player.getIsInfected())) {
+        src = returnPlayerRotation(playerMovement, player.getIsInfected());
+    }
     //img.style = 'transform: rotate(' + returnPlayerRotation() + 'deg)';
     //img.setAttribute("style", "transform: rotate(20deg)");
-    drawPlayer(img, x, y, 75, 100, degree);
+    drawPlayer(src, player.getX(), player.getY());
 }
 
-function drawPlayer(img, x, y, width, height, deg) {
+function drawPlayer(src, x, y) {
 
-    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations#Basic_animation_steps
-
-    // Clear the canvas
+//    // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations#Basic_animation_steps
+//
+//    // Clear the canvas
+//    ctx.clearRect(0, 0, 700, 700);
+//
+//    // Store the current context state (i.e. rotation, translation etc..)
+//    ctx.save()
+//
+//    // Convert degrees to radian
+//    var radian = deg * Math.PI / 180;
+//
+//    // Set the origin to the center of the image
+//    ctx.translate(x + width / 2, y + height / 2);
+//
+//    // Rotate the canvas around the origin
+//    ctx.rotate(radian);
+//
+//    // Draw the image
+//    ctx.drawImage(img, width / 2 * (-1), height / 2 * (-1), width, height);
+//
+//    // Restore canvas state as saved from above
+//    ctx.restore();
+    
     ctx.clearRect(0, 0, 700, 700);
-
-    // Store the current context state (i.e. rotation, translation etc..)
-    ctx.save()
-
-    // Convert degrees to radian
-    var radian = deg * Math.PI / 180;
-
-    // Set the origin to the center of the image
-    ctx.translate(x + width / 2, y + height / 2);
-
-    // Rotate the canvas around the origin
-    ctx.rotate(radian);
-
-    // Draw the image
-    ctx.drawImage(img, width / 2 * (-1), height / 2 * (-1), width, height);
-
-    // Restore canvas state as saved from above
-    ctx.restore();
+    
+    var img = new Image();
+    img.onload = function() {
+      ctx.drawImage(img, x, y);  
+    };
+    img.src = src;
+    
 }
 
 // Return the player rotation in degrees
-function returnPlayerRotation(pm) {
+function returnPlayerRotation(pm, isInfected) {
+    
+    var url = "";
+    
+    if (isInfected) {
+        url = "assets/PlayerI_";
+    } else {
+        url = "assets/PlayerNI_";
+    }
 
     if (pm.up) {
 
@@ -119,8 +140,10 @@ function returnPlayerRotation(pm) {
 //                return 315;
 //            }
 //        } else {
-            return 0;
+            //return 0;
         //}
+        url += "up.PNG";
+        return url;
     }
 
     if (pm.down) {
@@ -135,17 +158,25 @@ function returnPlayerRotation(pm) {
 //                return 225;
 //            }
         //} else {
-            return 180;
+            //return 180;
+        url += "down.PNG";
+        return url;
         //}
     }
 
     if (pm.left) {
-        return 270;
+        //return 270;
+        url += "left.PNG";
+        return url;
     }
 
     if (pm.right) {
-        return 90;
+//        return 90;
+        url += "right.PNG";
+        return url;
     }
 
-    return 0;
+    //return 0;
+    url += "up.PNG";
+    return url;
 }
