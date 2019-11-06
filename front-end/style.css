@@ -12,7 +12,7 @@
   border-radius: 15px;
   text-align:center;
   color: white;
-  background-color: black;
+  background-color: #626161;
   /* height: 15em; */
 }
 
@@ -30,7 +30,7 @@
   cursor: pointer;
   outline: none;
   color: white;
-  background-color: red;
+  background-color: #53A631;
   border: none;
   border-radius: 15px;
 }
