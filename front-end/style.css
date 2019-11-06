@@ -1,3 +1,9 @@
+/* body {
+  background-image: url("background.png");
+} */
+
+
+
 .box {
   margin: auto;
   width: 30%;
@@ -5,12 +11,16 @@
   padding: 10px;
   border-radius: 15px;
   text-align:center;
+  color: white;
+  background-color: black;
   /* height: 15em; */
 }
 
 .margin {
     margin: 7px;
 }
+
+
 
 
 
