@@ -1,6 +1,6 @@
 CREATE TABLE Users(
 username VARCHAR(20) PRIMARY KEY,
-password VARCHAR(64),
+password VARCHAR(256),
 id VARCHAR(64),
 )ENGINE=INNODB;
 
@@ -9,5 +9,19 @@ name VARCHAR(20),
 score INT,
 FOREIGN KEY(name) REFERENCES Users(username)
 )ENGINE=INNODB;
+
+// Queries
+
+// Add new user
+INSERT INTO Users (username, password) VALUES ('rl68', '256hash');
+
+// Check login details are correct
+SELECT username, password FROM Users WHERE username = 'user input' AND password 'user hash password';
+
+// Get score for user
+SELECT name, score FROM Scores WHERE name = 'name';
+
+// Update score for user
+UPDATE Score SET score WHERE name = 'name';
 
 
