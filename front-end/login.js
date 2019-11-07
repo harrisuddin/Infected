@@ -1,13 +1,15 @@
 var Username;
 var Password;
 var Password2;
-var Signupvalid = false;
+var Signupvalid;
 
 
 function Startup() {
     document.getElementById("pw2").style.display = "none";
-    //document.getElementById("myCanvas").style.display = "none";
     document.getElementById("Topnav").style.display = "none";
+    document.getElementById("player").style.display = "none";
+    document.getElementById("player2").style.display = "none";
+    document.getElementById("Startgame").style.display = "none";
 }
 
 function topnav() {
@@ -36,7 +38,6 @@ function signupfun2() {
         alert("Username has to be between 0 to 10 characters");
         Signupvalid = false;
     } else {
-        document.getElementById("testun").innerHTML = Username;
         Signupvalid = true;
     }
 
@@ -44,7 +45,6 @@ function signupfun2() {
         alert("Password has to be between 0 to 10 characters");
         Signupvalid = false;
     } else {
-        document.getElementById("testpw").innerHTML = Password;
         Signupvalid = true;
     }
 
@@ -52,16 +52,17 @@ function signupfun2() {
         alert("Re-enter Password has to be between 0 to 10 characters");
         Signupvalid = false;
     } else {
-        document.getElementById("testpw2").innerHTML = Password2;
         Signupvalid = true;
     }
 
 
     if (Signupvalid == true) {
-        document.getElementById("startpagebox").style.display = "none";
-        //document.getElementById("myCanvas").style.display = "block";
-        document.getElementById("Topnav").style.display = "block";
-        play();
+          document.getElementById("Lbutton").style.display = "none";
+          document.getElementById("Singupb").style.display = "none";
+          document.getElementById("un").style.display = "none";
+          document.getElementById("pw").style.display = "none";
+          document.getElementById("pw2").style.display = "none";
+          document.getElementById("Startgame").style.display = "inline";
     }
 }
 
@@ -76,12 +77,21 @@ function orlogin() {
 function loginfun() {
     var Username = document.getElementById("un").value;
     var Password = document.getElementById("pw").value;
-    document.getElementById("testun").innerHTML = Username;
-    document.getElementById("testpw").innerHTML = Password;
-    document.getElementById("startpagebox").style.display = "none";
-    //document.getElementById("myCanvas").style.display = "block";
-    document.getElementById("Topnav").style.display = "block";
-    play();
+    document.getElementById("Lbutton").style.display = "none";
+    document.getElementById("Singupb").style.display = "none";
+    document.getElementById("un").style.display = "none";
+    document.getElementById("pw").style.display = "none";
+    document.getElementById("pw2").style.display = "none";
+    document.getElementById("Startgame").style.display = "inline";
+}
+
+function startgame(){
+  document.getElementById("startpagebox").style.display = "none";
+  document.getElementById("Topnav").style.display = "block";
+  document.getElementById("player").style.display = "block";
+  document.getElementById("player2").style.display = "block";
+  play();
+
 }
 
 
