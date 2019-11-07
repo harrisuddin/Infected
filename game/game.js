@@ -30,6 +30,11 @@ function update() {
     console.log(player.getX() + " " + player.getY());
     console.log(player2.getX() + " " + player2.getY());
 
+    var imageWidth = document.getElementById("img2").clientWidth;
+    var imageHeight = document.getElementById("img2").clientHeight;
+
+    console.log("image: " + imageWidth + " " + imageHeight);
+
     document.addEventListener('keydown', function (event) {
         switch (event.keyCode) {
             case 65: // A
