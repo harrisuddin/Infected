@@ -6,7 +6,7 @@ var Signupvalid = false;
 
 function Startup() {
     document.getElementById("pw2").style.display = "none";
-    document.getElementById("myCanvas").style.display = "none";
+    //document.getElementById("myCanvas").style.display = "none";
     document.getElementById("Topnav").style.display = "none";
 }
 
@@ -59,7 +59,7 @@ function signupfun2() {
 
     if (Signupvalid == true) {
         document.getElementById("startpagebox").style.display = "none";
-        document.getElementById("myCanvas").style.display = "block";
+        //document.getElementById("myCanvas").style.display = "block";
         document.getElementById("Topnav").style.display = "block";
         play();
     }
@@ -79,7 +79,7 @@ function loginfun() {
     document.getElementById("testun").innerHTML = Username;
     document.getElementById("testpw").innerHTML = Password;
     document.getElementById("startpagebox").style.display = "none";
-    document.getElementById("myCanvas").style.display = "block";
+    //document.getElementById("myCanvas").style.display = "block";
     document.getElementById("Topnav").style.display = "block";
     play();
 }
