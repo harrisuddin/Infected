@@ -6,10 +6,11 @@ class Player {
         this.name = "";
         this.isInfected = false; // by default, players are not infected. Players will be randomly chosen to be infected when game begins
         
-        // when player is first constructed, set their x, y coordinates to 300, 300.
+        // when player is first constructed, set their x, y coordinates to 300, 300 and height and width to 75.
         this.x = 300;
         this.y = 300;
-        
+        this.height = 75;
+        this.width = 75;
     }
     
     // return the player data in JSON
@@ -67,6 +68,26 @@ class Player {
     // set the name of the player
     setName(a) {
         this.name = a;
+    }
+    
+    // set the height of the player
+    getHeight() {
+    	return this.height;
+    }
+    
+    // get the height of the player
+    setHeight(a){
+    	this.height = a;
+    }
+    
+    // get the width of the player
+    getWidth(){
+		return this.width;    
+    }
+    
+    // set the width of the player
+    setWidth(a){
+   	    this.width = a; 
     }
 
     // randomly set the x and y coordinate of the player to numbers lower than or equal to the given maximum x and y
