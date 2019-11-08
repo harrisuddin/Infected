@@ -6,14 +6,14 @@ playerInfected.src = "../assets/PlayerI.png";
 
 class Player 
 {
-    constructor(username, xPosition, yPosition) 
+    constructor(username, xPosition, yPosition, isInfected) 
     {
         this._username = username;
         this._xPosition = xPosition;
         this._yPosition = yPosition;
+        this._isInfected = isInfected;
 
         this._speed = 5;
-        this._isInfected = false;
 
         this._image;
 
