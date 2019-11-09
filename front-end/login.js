@@ -10,6 +10,7 @@ function Startup() {
     document.getElementById("player").style.display = "none";
     document.getElementById("player2").style.display = "none";
     document.getElementById("Startgame").style.display = "none";
+    document.getElementById("game").style.display = "none";
 }
 
 function topnav() {
@@ -57,12 +58,12 @@ function signupfun2() {
 
 
     if (Signupvalid == true) {
-          document.getElementById("Lbutton").style.display = "none";
-          document.getElementById("Singupb").style.display = "none";
-          document.getElementById("un").style.display = "none";
-          document.getElementById("pw").style.display = "none";
-          document.getElementById("pw2").style.display = "none";
-          document.getElementById("Startgame").style.display = "inline";
+        document.getElementById("Lbutton").style.display = "none";
+        document.getElementById("Singupb").style.display = "none";
+        document.getElementById("un").style.display = "none";
+        document.getElementById("pw").style.display = "none";
+        document.getElementById("pw2").style.display = "none";
+        document.getElementById("Startgame").style.display = "inline";
     }
 }
 
@@ -85,12 +86,13 @@ function loginfun() {
     document.getElementById("Startgame").style.display = "inline";
 }
 
-function startgame(){
-  document.getElementById("startpagebox").style.display = "none";
-  document.getElementById("Topnav").style.display = "block";
-  document.getElementById("player").style.display = "block";
-  document.getElementById("player2").style.display = "block";
-  play();
+function startgame() {
+    document.getElementById("startpagebox").style.display = "none";
+    document.getElementById("Topnav").style.display = "block";
+    document.getElementById("player").style.display = "block";
+    document.getElementById("player2").style.display = "block";
+    document.getElementById("game").style.display = "block";
+    play();
 
 }
 

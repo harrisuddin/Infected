@@ -4,7 +4,7 @@
 // Globals
 var player = new Player();
 var player2 = new Player();
-player2.setX(1000);//temporary
+player2.setX(600);//temporary
 
 var playerMovement = {
     up: false,
@@ -23,7 +23,7 @@ var playerMovement2 = {
 function play() {
     setInterval(function () {
         update();
-    }, (1000 / 60));
+    }, (1000 / 50));
 }
 
 function update() {
@@ -131,6 +131,12 @@ function update() {
         //y += 5;
         player2.setY(player2.getY() + 5);
     }
+
+    var innerWidth = window.innerWidth;
+    var innerHeight = window.innerHeight;
+
+    //console.log("translate(" + (player.getX() - (500 / 2)) + ", " + (player.getY() - (500 / 2)) + ")");
+    document.getElementById("game").style.transform = "translate(" + (-1*(player.getX() - (innerWidth / 2))) + "px" +  ", " + (-1*(player.getY() - (innerHeight / 2))) + "px" + ")";
 
     document.getElementById("player").style.left = player.getX() + "px";
     document.getElementById("player").style.top = player.getY() + "px";
