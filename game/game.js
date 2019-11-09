@@ -4,7 +4,7 @@
 // Globals
 var player = new Player();
 var player2 = new Player();
-player2.setX(600);//temporary
+player2.setX(900); //temporary
 
 var playerMovement = {
     up: false,
@@ -134,9 +134,48 @@ function update() {
 
     var innerWidth = window.innerWidth;
     var innerHeight = window.innerHeight;
+    var translateX = false;
+    var translateY = false;
 
     //console.log("translate(" + (player.getX() - (500 / 2)) + ", " + (player.getY() - (500 / 2)) + ")");
-    document.getElementById("game").style.transform = "translate(" + (-1*(player.getX() - (innerWidth / 2))) + "px" +  ", " + (-1*(player.getY() - (innerHeight / 2))) + "px" + ")";
+
+    //    if (player.getX() > 640 && player.getY() > 240) {
+    //        document.getElementById("game").style.transform = "translate(" + (-1*(player.getX() - (innerWidth / 2))) + "px" +  ", " + (-1*(player.getY() - (innerHeight / 2))) + "px" + ")";
+    //    }
+
+    if (player.getX() > 640 && player.getX() < 3150) {
+        translateX = true;
+        //        console.log("transforming x");
+        //        document.getElementById("game").style.transform = "translateX(" + (-1*(player.getX() - (innerWidth / 2))) + "px" + ")";
+
+    }
+
+    if (player.getY() > 245 && player.getY() < 1900) {
+        translateY = true;
+        //        console.log("transforming y");
+        //        document.getElementById("game").style.transform = "translateY(" + (-1*(player.getY() - (innerHeight / 2))) + "px" + ")";
+    }
+
+    if (translateX && translateY) {
+        //alert("hi");
+        document.getElementById("game").style.transform = "translate(" + (-1 * (player.getX() - (innerWidth / 2))) + "px" + ", " + (-1 * (player.getY() - (innerHeight / 2))) + "px" + ")";
+    } else {
+
+        if (translateX) {
+            document.getElementById("game").style.transform = "translateX(" + (-1 * (player.getX() - (innerWidth / 2))) + "px" + ")";
+        }
+
+        if (translateY) {
+            document.getElementById("game").style.transform = "translateY(" + (-1*(player.getY() - (innerHeight / 2))) + "px" + ")";
+        }
+
+    }
+
+
+
+
+
+    $("#player span").text("x: " + player.getX() + ", " + "y: " + player.getY());
 
     document.getElementById("player").style.left = player.getX() + "px";
     document.getElementById("player").style.top = player.getY() + "px";
@@ -150,8 +189,8 @@ function update() {
         player.getX() + player.getWidth() > player2.getX() &&
         player.getY() < player2.getY() + player2.getHeight() &&
         player.getY() + player.getHeight() > player2.getY()) {
-          alert("true");
-      }
+        alert("true");
+    }
 }
 
 function returnPlayerRotation(pm) {

@@ -7,8 +7,8 @@ class Player {
         this.isInfected = false; // by default, players are not infected. Players will be randomly chosen to be infected when game begins
         
         // when player is first constructed, set their x, y coordinates to 300, 300 and height and width to 75.
-        this.x = 1920;
-        this.y = 1080;
+        this.x = 640;
+        this.y = 250;
         this.height = 75;
         this.width = 75;
     }
