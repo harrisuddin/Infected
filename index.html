@@ -5,38 +5,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Infected</title>
-  <link rel="stylesheet" href="front-end/style.css">
+    <link rel="stylesheet" href="front-end/style.css">
 
 </head>
 
 <body>
-  <div class="topnav" id="Topnav">
-    <a href="#home" class="active">HOME</a>
-    <a id="timer">TIMER:</a>
-    <a id="score">SCORE:</a>
-  </div>
-
-
-<!--  <canvas id="myCanvas" width="700" height="700" style="border:1px solid #d3d3d3;"></canvas>-->
-
-    <div id="player" style="position: absolute;">
-        <img src="assets/PlayerI_up.png">
+    <div class="topnav" id="Topnav">
+        <a href="#home" class="active">HOME</a>
+        <a id="timer">TIMER:</a>
+        <a id="score">SCORE:</a>
     </div>
 
-    <div id="player2" style="position: absolute;">
-        <img src="assets/PlayerNI_up.png">
+    <div id="game">
+<!--        <canvas id="canvas"></canvas>-->
+        <div id="player" style="position: absolute;">
+            <img src="assets/PlayerI.png">
+        </div>
+
+        <div id="player2" style="position: absolute;">
+            <img src="assets/PlayerNI.png">
+        </div>
     </div>
 
     <div class="box" id="startpagebox">
-      <h1>Infected</h1>
-      <div>
-      <input class="margin" id="un" type="text" placeholder="Username"><br>
-      <input class="margin" id="pw" type="text" placeholder="Password"><br>
-      <input class="margin" id="pw2" type="text" name="Password2" placeholder="Re-enter Password">
-      </div>
-      <input type="button" value="LOGIN" onclick="loginfun()" class="Homebutton" id="Lbutton"></input>
-      <input type="button" value="SIGN UP" onclick="signupfun()" class="Homebutton" id="Singupb"></input>
-      <input type="button" value="START" onclick="startgame()" class="Homebutton" id="Startgame"></input>
+        <h1>Infected</h1>
+        <div>
+            <input class="margin" id="un" type="text" placeholder="Username"><br>
+            <input class="margin" id="pw" type="text" placeholder="Password"><br>
+            <input class="margin" id="pw2" type="text" name="Password2" placeholder="Re-enter Password">
+        </div>
+        <input type="button" value="LOGIN" onclick="loginfun()" class="Homebutton" id="Lbutton">
+        <input type="button" value="SIGN UP" onclick="signupfun()" class="Homebutton" id="Singupb">
+        <input type="button" value="START" onclick="startgame()" class="Homebutton" id="Startgame">
     </div>
 
 
