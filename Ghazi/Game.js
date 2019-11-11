@@ -79,8 +79,8 @@ function draw()
     context.translate(player.xPosition + player.image.width, player.yPosition + player.image.height);
     context.rotate(player.rotation * Math.PI / 180);
     context.drawImage(player.image, -(player.image.width / 2), -(player.image.height / 2));
-    //context.fillText(player.username, player.xPosition, player.yPosition - 5);
     context.restore();
+    context.fillText(player.username, player.xPosition + 25, player.yPosition + 25);
     context.drawImage(player2.image, player2.xPosition, player2.yPosition);
     
 }
