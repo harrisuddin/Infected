@@ -22,7 +22,7 @@ const AI = [];
 AI[0] = new Player("Human1", 300, 700, false);
 AI[1] = new Player("Human2", 600, 500, false);
 AI[2] = new Player("Human4", 1000, 300, false);
-//AI[3] = new Player("Human3", 1200, 900, false);
+AI[3] = new Player("Human3", 1200, 900, false);
 
 player.image.onload = animate;
 
@@ -77,6 +77,27 @@ function drawAI()
 {
     AI.forEach(AIElement => {
         context.drawImage(AIElement.image, AIElement.xPosition, AIElement.yPosition);
+
+        if (player.rotation == 90 || player.rotation == 270) 
+        {
+            if (player.xPosition <= AIElement.xPosition + AIElement.image.width - 30 && player.xPosition + player.image.height >= AIElement.xPosition - 20) 
+            {
+                if (player.yPosition <= AIElement.yPosition + AIElement.image.height - 60 && player.yPosition + player.image.width >= AIElement.yPosition - 60) 
+                {
+                    AIElement.isInfected = true;
+                }
+            }
+        }
+        else 
+        {
+            if (player.xPosition <= AIElement.xPosition + AIElement.image.width - 25 && player.xPosition + player.image.width >= AIElement.xPosition - 25) 
+            {
+                if (player.yPosition <= AIElement.yPosition + AIElement.image.height - 55 && player.yPosition + player.image.height >= AIElement.yPosition - 40) 
+                {
+                    AIElement.isInfected = true;
+                }
+            }
+        }
     });
 }
 
@@ -98,29 +119,6 @@ function draw()
     rotate();
 
     context.fillText(player.username, player.xPosition + 35, player.yPosition + 35);
-
-    AI.forEach(AIElement => {
-        if (player.rotation == 90 || player.rotation == 270) 
-        {
-            if (player.xPosition <= AIElement.xPosition + AIElement.image.width - 30 && player.xPosition + player.image.height >= AIElement.xPosition - 20) 
-            {
-                if (player.yPosition <= AIElement.yPosition + AIElement.image.height - 60 && player.yPosition + player.image.width >= AIElement.yPosition - 60) 
-                {
-                    alert("Player Collision: (" + player.xPosition + ", " + player.yPosition + ")\n" + "AI Position: (" + AIElement.xPosition + ", " + AIElement.yPosition + ")");
-                }
-            }
-        }
-        else 
-        {
-            if (player.xPosition <= AIElement.xPosition + AIElement.image.width - 25 && player.xPosition + player.image.width >= AIElement.xPosition - 25) 
-            {
-                if (player.yPosition <= AIElement.yPosition + AIElement.image.height - 55 && player.yPosition + player.image.height >= AIElement.yPosition - 40) 
-                {
-                    alert("Player Collision: (" + player.xPosition + ", " + player.yPosition + ")");
-                }
-            }
-        }
-    });
     
     drawAI();
 }
