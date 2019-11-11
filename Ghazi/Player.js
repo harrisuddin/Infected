@@ -13,6 +13,7 @@ class Player
         this._yPosition = yPosition;
         this._isInfected = isInfected;
 
+        this._rotation = 0;
         this._speed = 5;
 
         this._image;
@@ -50,11 +51,6 @@ class Player
         this._yPosition = yPosition;
     }
 
-    get speed() 
-    {
-        return this._speed;
-    }
-
     get isInfected() 
     {
         return this._isInfected;
@@ -64,6 +60,26 @@ class Player
     {
         this._isInfected = isInfected;
         this.setImage();
+    }
+
+    get rotation() 
+    {
+        return this._rotation;
+    }
+
+    set rotation(rotation) 
+    {
+        this._rotation = rotation;
+    }
+
+    get speed() 
+    {
+        return this._speed;
+    }
+
+    set speed(speed) 
+    {
+        this._speed = speed;
     }
 
     get image()
@@ -82,5 +98,4 @@ class Player
             this._image = playerNotInfected;
         }
     }
-
 }

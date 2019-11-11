@@ -13,19 +13,14 @@ class KeyHandler
         return this._upPressed;
     }
 
-    set upPressed(upPressed) 
+    get rightPressed() 
     {
-        this._upPressed = upPressed;
+        return this._rightPressed;
     }
 
     get downPressed() 
     {
         return this._downPressed;
-    }
-
-    get rightPressed() 
-    {
-        return this._rightPressed;
     }
 
     get leftPressed() 
@@ -35,19 +30,19 @@ class KeyHandler
 
     keyDownHandler(e) 
     {
-        if(e.key == "Up" || e.key == "ArrowUp") 
+        if (e.key == "Up" || e.key == "ArrowUp") 
         {
             this._upPressed = true;
         }
-        else if(e.key == "Down" || e.key == "ArrowDown") 
-        {
-            this._downPressed = true;
-        }
-        else if(e.key == "Right" || e.key == "ArrowRight") 
+        else if (e.key == "Right" || e.key == "ArrowRight") 
         {
             this._rightPressed = true;
         }
-        else if(e.key == "Left" || e.key == "ArrowLeft") 
+        else if (e.key == "Down" || e.key == "ArrowDown") 
+        {
+            this._downPressed = true;
+        }
+        else if (e.key == "Left" || e.key == "ArrowLeft") 
         {
             this._leftPressed = true;
         }
@@ -55,19 +50,19 @@ class KeyHandler
 
     keyUpHandler(e) 
     {
-        if(e.key == "Up" || e.key == "ArrowUp") 
+        if (e.key == "Up" || e.key == "ArrowUp") 
         {
             this._upPressed = false;
         }
-        else if(e.key == "Down" || e.key == "ArrowDown") 
-        {
-            this._downPressed = false;
-        }
-        else if(e.key == "Right" || e.key == "ArrowRight") 
+        else if (e.key == "Right" || e.key == "ArrowRight") 
         {
             this._rightPressed = false;
         }
-        else if(e.key == "Left" || e.key == "ArrowLeft") 
+        else if (e.key == "Down" || e.key == "ArrowDown") 
+        {
+            this._downPressed = false;
+        }
+        else if (e.key == "Left" || e.key == "ArrowLeft") 
         {
             this._leftPressed = false;
         }
