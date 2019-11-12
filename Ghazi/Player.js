@@ -18,6 +18,8 @@ class Player
 
         this._image;
 
+        this._score = 0;
+
         this.setImage();
     }
 
@@ -85,6 +87,16 @@ class Player
     get image()
     {
         return this._image;
+    }
+
+    get score()
+    {
+        return this._score;
+    }
+
+    incrementScore()
+    {
+        this._score += 5;
     }
 
     setImage() 

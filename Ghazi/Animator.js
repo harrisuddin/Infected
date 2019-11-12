@@ -29,6 +29,7 @@ class Animator {
 
         this.drawAI();
 
+        document.getElementById("score").innerHTML = this._player.score;
     }
 
     animate() {
@@ -69,19 +70,26 @@ class Animator {
             if (this._player.rotation == 90 || this._player.rotation == 270) {
                 if (this._player.xPosition <= AIElement.xPosition + AIElement.image.width - 30 && this._player.xPosition + this._player.image.height >= AIElement.xPosition - 20) {
                     if (this._player.yPosition <= AIElement.yPosition + AIElement.image.height - 60 && this._player.yPosition + this._player.image.width >= AIElement.yPosition - 60) {
-                        AIElement.isInfected = true;
+                        if (!AIElement.isInfected) {
+                            AIElement.isInfected = true;
+                            this._player.incrementScore();
+                        }
+
                     }
                 }
             } else {
                 if (this._player.xPosition <= AIElement.xPosition + AIElement.image.width - 25 && this._player.xPosition + this._player.image.width >= AIElement.xPosition - 25) {
                     if (this._player.yPosition <= AIElement.yPosition + AIElement.image.height - 55 && this._player.yPosition + this._player.image.height >= AIElement.yPosition - 40) {
-                        AIElement.isInfected = true;
+                        if (!AIElement.isInfected) {
+                            AIElement.isInfected = true;
+                            this._player.incrementScore();
+                        }
                     }
                 }
             }
         });
     }
-    
+
     centerPlayer() {
         // translate the viewport so that the player in the middle of the screen at all times
         var transX = (-this._player.xPosition + window.innerWidth / 2) - this._player.image.width;
