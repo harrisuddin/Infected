@@ -8,15 +8,10 @@ AI[3] = new Player("Human3", 1200, 900, false);
 
 const animator = new Animator(player, AI);
 
-player.image.onload = gameRun;
+window.onload = gameRun;
 
 function gameRun() 
 {
-    update();
-    requestAnimationFrame(gameRun);
-}
-
-function update() 
-{
     animator.draw();
+    requestAnimationFrame(gameRun);
 }

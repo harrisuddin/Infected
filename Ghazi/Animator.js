@@ -1,8 +1,7 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
-canvas.height = window.innerHeight - 1;
-canvas.width = window.innerWidth - 1;
-
+canvas.height = 5000;
+canvas.width = 5000;
 context.font = "18px Sans-Serif";
 
 keyHandler = new KeyHandler();
