@@ -84,8 +84,8 @@ class Animator {
     
     centerPlayer() {
         // translate the viewport so that the player in the middle of the screen at all times
-        var transX = (-player.xPosition + window.innerWidth / 2) - player.image.width;
-        var transY = (-player.yPosition + window.innerHeight / 2) - player.image.height;
+        var transX = (-this._player.xPosition + window.innerWidth / 2) - this._player.image.width;
+        var transY = (-this._player.yPosition + window.innerHeight / 2) - this._player.image.height;
         canvas.style.transform = "translate(" + transX + "px" + ", " + transY + "px" + ")";
     }
 
