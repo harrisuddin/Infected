@@ -1,14 +1,17 @@
-* 
-{
-  margin:0; padding:0; 
+* {
+    margin: 0;
+    padding: 0;
 }
 
-html, body 
-{
-  width:100%; height:100%;
+html,
+body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #3498eb; /* sea color */
 }
 
-canvas 
-{
-  display:block;
+canvas {
+    display: block;
+    background-image: url(../assets/Background.png); /*beach image*/
 }
