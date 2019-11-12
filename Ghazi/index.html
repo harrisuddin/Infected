@@ -7,10 +7,17 @@
         <style>
             * { padding: 0; margin: 0; }
             canvas { display: block; margin: 0 auto; }
+            #score {
+                position: fixed;
+                top: 0;
+                left: 0;
+                z-index: 1;
+            }
         </style>
     </head>
     <body>
 
+    <p id="score"></p>
     <canvas id="gameCanvas"></canvas>
 
     <script src = "Player.js"></script>
