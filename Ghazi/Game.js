@@ -35,10 +35,6 @@ setInterval(function () {
 }, 1000);
 
 
-const player = new Player("Infected", 1200, 100, true);
-
-
-
 //Test connection is working
 //socket.on('message', function (data) {
 //    console.log(data);
