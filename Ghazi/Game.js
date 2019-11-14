@@ -1,7 +1,10 @@
 // This is the time of the game in seconds.
 var currentTime = 120;
+var socket = io();
 
 const player = new Player("Infected", 1200, 100, true);
+
+socket.emit('new player');
 
 const AI = [];
 AI[0] = new Player("Human1", 300, 700, false);
@@ -26,4 +29,20 @@ function gameTimer()
     currentTime--;
     document.getElementById("timer").innerHTML = "TIME REMAINING: " + currentTime;
 }
+
+setInterval(function () {
+    socket.emit('player', player);
+}, 1000);
+
+
+const player = new Player("Infected", 1200, 100, true);
+
+
+
+//Test connection is working
+//socket.on('message', function (data) {
+//    console.log(data);
+//});
+
+
 
