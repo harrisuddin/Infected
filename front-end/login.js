@@ -2,6 +2,7 @@ var Username;
 var Password;
 var Password2;
 var Signupvalid;
+var Counter = 0;
 
 
 function Startup() {
@@ -28,6 +29,7 @@ function signupfun() {
     document.getElementById("pw2").style.display = "inline";
     document.getElementById("Lbutton").value = "OR LOGIN";
     document.getElementById("Lbutton").setAttribute("onClick", "orlogin()");
+    document.getElementById("Guest").style.display = "none";
 }
 
 //this function is for when the user is siging up
@@ -72,6 +74,7 @@ function orlogin() {
     document.getElementById("Lbutton").value = "LOGIN";
     document.getElementById("Singupb").setAttribute("onClick", "signupfun()");
     document.getElementById("Lbutton").setAttribute("onClick", "loginfun()");
+    document.getElementById("Guest").style.display = "inline";
 }
 
 
@@ -84,7 +87,23 @@ function loginfun() {
     document.getElementById("pw").style.display = "none";
     document.getElementById("pw2").style.display = "none";
     document.getElementById("Startgame").style.display = "inline";
+    document.getElementById("Guest").style.display = "none";
 }
+
+function Guest() {
+  document.getElementById("Lbutton").style.display = "none";
+  document.getElementById("Singupb").style.display = "none";
+  document.getElementById("un").style.display = "none";
+  document.getElementById("pw").style.display = "none";
+  document.getElementById("pw2").style.display = "none";
+  document.getElementById("Startgame").style.display = "inline";
+  document.getElementById("Guest").style.display = "none";
+  Guestname = Counter;
+  console.log(Guestname);
+  Counter++;
+
+}
+
 
 function startgame() {
     document.getElementById("startpagebox").style.display = "none";

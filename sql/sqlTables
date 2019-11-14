@@ -16,7 +16,7 @@ FOREIGN KEY(name) REFERENCES Users(username)
 INSERT INTO Users (username, password) VALUES ('rl68', '256hash');
 
 // Check login details are correct
-SELECT username, password FROM Users WHERE username = 'user input' AND password 'user hash password';
+SELECT username, password FROM Users WHERE username = 'user input' AND password = 'user hash password';
 
 // Get score for user
 SELECT name, score FROM Scores WHERE name = 'name';
