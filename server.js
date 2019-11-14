@@ -18,10 +18,16 @@ app.get('/', (req, res) => {
 
 // temporary to test db connection
 app.get('/db', (req, res) => {
-   db.connect(function (err) {
-       if (err) throw err;
-       console.log("Connected!");
-   });
+    var createUsers = "CREATE TABLE IF NOT EXISTS Users(username VARCHAR(20) PRIMARY KEY, password VARCHAR(256), id VARCHAR(64)) ENGINE=INNODB;"
+    var createScores = "CREATE TABLE IF NOT EXISTS Scores(name VARCHAR(20), score INT, FOREIGN KEY(name) REFERENCES Users(username))ENGINE=INNODB;"
+    db.query(createUsers, function (err, result) {
+        if (err) throw err;
+        console.log("User table created");
+    });
+    db.query(createScores, function (err, result) {
+        if (err) throw err;
+        console.log("Score table created");
+    });
 });
 
 var port = process.env.PORT || 5000;
