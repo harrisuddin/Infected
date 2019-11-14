@@ -6,33 +6,32 @@ context.font = "18px Sans-Serif";
 
 keyHandler = new KeyHandler();
 document.addEventListener("keydown", (event) => {
-
     keyHandler.keyDownHandler(event);
 }, false);
 document.addEventListener("keyup", (event) => {
-
     keyHandler.keyUpHandler(event);
 }, false);
 
-class Animator {
+class Animator 
+    {
     constructor(player, AI) {
         this._player = player;
         this._AI = AI;
     }
 
-    draw() {
-
+    draw() 
+    {
         this.rotate();
         this.animate();
 
         context.fillText(this._player.username, this._player.xPosition + 40, this._player.yPosition + 45);
 
+        this.drawScore();
         this.drawAI();
-
-        document.getElementById("score").innerHTML = this._player.score;
     }
 
-    animate() {
+    animate() 
+    {
         if (keyHandler.upPressed && this._player.yPosition > 0) {
             this._player.yPosition -= this._player.speed;
             this._player.rotation = 0;
@@ -63,7 +62,13 @@ class Animator {
         }
     }
 
-    drawAI() {
+    drawScore() 
+    {
+        document.getElementById("score").innerHTML = "SCORE: " + this._player.score;
+    }
+
+    drawAI() 
+    {
         this._AI.forEach(AIElement => {
             context.drawImage(AIElement.image, AIElement.xPosition, AIElement.yPosition);
 
@@ -72,7 +77,7 @@ class Animator {
                     if (this._player.yPosition <= AIElement.yPosition + AIElement.image.height - 60 && this._player.yPosition + this._player.image.width >= AIElement.yPosition - 60) {
                         if (!AIElement.isInfected) {
                             AIElement.isInfected = true;
-                            this._player.incrementScore();
+                            this._player.score += 5;
                         }
 
                     }
@@ -82,7 +87,7 @@ class Animator {
                     if (this._player.yPosition <= AIElement.yPosition + AIElement.image.height - 55 && this._player.yPosition + this._player.image.height >= AIElement.yPosition - 40) {
                         if (!AIElement.isInfected) {
                             AIElement.isInfected = true;
-                            this._player.incrementScore();
+                            this._player.score += 5;
                         }
                     }
                 }
@@ -90,14 +95,16 @@ class Animator {
         });
     }
 
-    centerPlayer() {
-        // translate the viewport so that the player in the middle of the screen at all times
+    // translate the viewport so that the player in the middle of the screen at all times
+    centerPlayer() 
+    {
         var transX = (-this._player.xPosition + window.innerWidth / 2) - this._player.image.width;
         var transY = (-this._player.yPosition + window.innerHeight / 2) - this._player.image.height;
         canvas.style.transform = "translate(" + transX + "px" + ", " + transY + "px" + ")";
     }
 
-    rotate() {
+    rotate() 
+    {
         context.save();
 
         this.centerPlayer();

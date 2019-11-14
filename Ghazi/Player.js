@@ -13,12 +13,11 @@ class Player
         this._yPosition = yPosition;
         this._isInfected = isInfected;
 
+        this._score = 0;
         this._rotation = 0;
         this._speed = 5;
 
         this._image;
-
-        this._score = 0;
 
         this.setImage();
     }
@@ -94,9 +93,9 @@ class Player
         return this._score;
     }
 
-    incrementScore()
+    set score(score) 
     {
-        this._score += 5;
+        this._score = score;
     }
 
     setImage() 
