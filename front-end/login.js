@@ -99,7 +99,9 @@ function Guest() {
   document.getElementById("Startgame").style.display = "inline";
   document.getElementById("Guest").style.display = "none";
   Guestname = Counter;
+  console.log(Guestname);
   Counter++;
+
 }
 
 
