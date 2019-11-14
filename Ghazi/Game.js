@@ -15,6 +15,8 @@ window.onload = gameRun;
 
 setInterval(gameTimer, 1000);
 
+console.log(player);
+
 function gameRun() 
 {
     animator.draw();
@@ -24,6 +26,6 @@ function gameRun()
 function gameTimer() 
 {
     currentTime--;
-    document.getElementById("timer").innerHTML = "TIME REMAINING: " + currentTime;
+    document.getElementById("timer").innerHTML = "TIME REMAINING: " + Math.floor(currentTime / 60) + ":" + currentTime % 60;
 }
 
