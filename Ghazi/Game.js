@@ -1,3 +1,6 @@
+// This is the time of the game in seconds.
+var currentTime = 120;
+
 const player = new Player("Infected", 1200, 100, true);
 
 const AI = [];
@@ -10,8 +13,17 @@ const animator = new Animator(player, AI);
 
 window.onload = gameRun;
 
+setInterval(gameTimer, 1000);
+
 function gameRun() 
 {
     animator.draw();
     requestAnimationFrame(gameRun);
 }
+
+function gameTimer() 
+{
+    currentTime--;
+    document.getElementById("timer").innerHTML = "TIME REMAINING: " + currentTime;
+}
+
