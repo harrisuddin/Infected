@@ -1,20 +1,12 @@
-const playerNotInfected = new Image();
-playerNotInfected.src = "../assets/PlayerNI.png";
-
-const playerInfected = new Image();
-playerInfected.src = "../assets/PlayerI.png";
-
-class Player 
-{
-    constructor(username, xPosition, yPosition, isInfected) 
-    {
+class Player {
+    constructor(username, xPosition, yPosition, isInfected, rotation, score) {
         this._username = username;
         this._xPosition = xPosition;
         this._yPosition = yPosition;
         this._isInfected = isInfected;
 
-        this._score = 0;
-        this._rotation = 0;
+        this._score = score;
+        this._rotation = rotation;
         this._speed = 5;
 
         this._image;
@@ -22,91 +14,88 @@ class Player
         this.setImage();
     }
 
-    get username() 
-    {
+    get username() {
         return this._username;
     }
 
-    set username(username) 
-    {
+    set username(username) {
         this._username = username;
     }
-    
-    get xPosition() 
-    {
+
+    get xPosition() {
         return this._xPosition;
     }
 
-    set xPosition(xPosition) 
-    {
+    set xPosition(xPosition) {
         this._xPosition = xPosition;
     }
 
-    get yPosition() 
-    {
+    get yPosition() {
         return this._yPosition;
     }
 
-    set yPosition(yPosition) 
-    {
+    set yPosition(yPosition) {
         this._yPosition = yPosition;
     }
 
-    get isInfected() 
-    {
+    get isInfected() {
         return this._isInfected;
     }
 
-    set isInfected(isInfected) 
-    {
+    set isInfected(isInfected) {
         this._isInfected = isInfected;
         this.setImage();
     }
 
-    get rotation() 
-    {
+    get rotation() {
         return this._rotation;
     }
 
-    set rotation(rotation) 
-    {
+    set rotation(rotation) {
         this._rotation = rotation;
     }
 
-    get speed() 
-    {
+    get speed() {
         return this._speed;
     }
 
-    set speed(speed) 
-    {
+    set speed(speed) {
         this._speed = speed;
     }
 
-    get image()
-    {
+    get image() {
         return this._image;
     }
 
-    get score()
-    {
+    get score() {
         return this._score;
     }
 
-    set score(score) 
-    {
+    set score(score) {
         this._score = score;
     }
 
-    setImage() 
-    {
-        if (this._isInfected) 
-        {
-            this._image = playerInfected;
+    setImage() {
+
+        const playerImage = new Image();
+        var src = "../assets/Player";
+
+        if (this._isInfected) {
+            src += "I";
+        } else {
+            src += "NI";
         }
-        else 
-        {
-            this._image = playerNotInfected;
-        }
+
+        src += this._rotation + ".png";
+
+        playerImage.src = src;
+
+        this._image = playerImage;
+    }
+
+    // randomly set the x and y coordinate of the player to numbers lower than or equal to the given maximum x and y
+    randomizePos(maxX, maxY) {
+        this._xPosition = Math.floor(Math.random() * maxX) + 1;
+        this._yPosition = Math.floor(Math.random() * maxY) + 1;
     }
 }

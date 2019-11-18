@@ -1,6 +1,7 @@
 // Dependencies
 const express = require('express');
 const db = require('./sql/db.js');
+
 var http = require('http');
 /* socket.io allows communication between
 the client and server bidirectionally
@@ -45,42 +46,62 @@ server.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
 
-
-// add the WebSocket handlers
-io.on('connection', function (socket) {});
-
-//Test connection is working
-//setInterval(function () {
-//    io.sockets.emit('message', 'hi!');
-//}, 1000);
-
 var players = {};
-io.on('connection', function (socket) {
-    socket.on('new player', function () {
-        console.log(socket.id);
-        players[socket.id] = 0; //temp
-    });
-
-    socket.on('player', function (data) {
-        // data sends the movement array from game.js
-//        var player = players[socket.id] || {};
-//        if (data.left) {
-//            player.x -= 5;
-//        }
-//        if (data.up) {
-//            player.y -= 5;
-//        }
-//        if (data.right) {
-//            player.x += 5;
-//        }
-//        if (data.down) {
-//            player.y += 5;
-//        }
-        players[socket.id] = data;
+var infectedCount = 0;
+io.on('connection', (socket) => {
+    // when a new player joins the game
+    socket.on('new player', (player) => {
+        //make sure client can't cheat and increase their score at start
+        // var x = Math.floor(Math.random() * 3640) + 1;
+        // var y = Math.floor(Math.random() * 1960) + 1;
+        // var infected;
+        // if (infectedCount == 0) {
+        //     infected = true;
+        //     infectedCount++;
+        // } else if (infectedCount > 0) {
+        //     infected = false;
+        // }
+        // // player._xPosition = x;
+        // // player._yPosition = y;
+        // // player._score = 0;
+        // var player = {
+        //     _username: name,
+        //     _xPosition: x,
+        //     _yPosition: y,
+        //     _isInfected: infected,
+        //     _rotation: 0,
+        //     _score: 0
+        // }
+        //socket.emit('validatePlayer', player);
+        // add player to the players object
+        players[socket.id] = player
         console.log(players);
     });
 
-    // when a new player connects, store their socket id as a key then instatiate a new player as the value
-    //players[socket.id] = new Player();
-    //console.log(players[socket.id].toString());
+    socket.on('updatePlayer', (player) => {
+        // get the updated player from the client
+        players[socket.id] = player
+    });
+
+    socket.on('disconnect', (reason) => {
+        // if the client disconnects then delete them from the game
+        delete players[socket.id];
+    });
 });
+
+// tell each client to draw all players at 60fps
+setInterval(function () {
+    io.sockets.emit('drawPlayers', players);
+}, 1000 / 60);
+
+// This is the game time counter
+var gameTime = 121;
+setInterval(function () {
+    if (Object.keys(players).length > 0) {
+        if (gameTime > 0) {
+            gameTime--;
+        }
+        console.log(gameTime);
+    }
+    io.sockets.emit('gameTime', gameTime);
+}, 1000);
