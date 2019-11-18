@@ -1,9 +1,7 @@
 var socket = io();
 var name = "Player" + Math.floor(Math.random() * 10000) + 1; // sim unique name
-var player = new Player(name, 1200, 100, true, 0, 0);
-player.randomizePos(canvas.width - 200, canvas.height - 200);
 
-socket.emit('new player', player);
+socket.emit('new player', name);
 
 function formatTime(time) {
   var seconds;
@@ -20,19 +18,15 @@ socket.on('gameTime', (time) => {
   document.getElementById("timer").innerHTML = "TIME REMAINING: " + formatTime(time);
 });
 
-socket.on('drawPlayers', (players) => {
-  var playerArray = [];
-  for (var id in players) {
-    var p = players[id];
-    if (p._username != name) {
-      playerArray.push(p);
-    }
-  }
-  var animator = new Animator(player, playerArray);
-  animator.draw();
-});
+keyHandler = new KeyHandler();
+document.addEventListener("keydown", (event) => {
+  keyHandler.keyDownHandler(event);
+}, false);
+document.addEventListener("keyup", (event) => {
+  keyHandler.keyUpHandler(event);
+}, false);
 
 // send the server the updated player
-setInterval( () => {
-  socket.emit('updatePlayer', player);
+setInterval(() => {
+  socket.emit('updatePlayer', keyHandler);
 }, 1000 / 60);

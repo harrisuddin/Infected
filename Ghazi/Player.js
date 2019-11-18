@@ -9,9 +9,9 @@ class Player {
         this._rotation = rotation;
         this._speed = 5;
 
-        this._image;
+        this._image_src;
 
-        this.setImage();
+        this.setImageSource();
     }
 
     get username() {
@@ -44,7 +44,7 @@ class Player {
 
     set isInfected(isInfected) {
         this._isInfected = isInfected;
-        this.setImage();
+        this.setImageSource();
     }
 
     get rotation() {
@@ -75,9 +75,9 @@ class Player {
         this._score = score;
     }
 
-    setImage() {
+    setImageSource() {
 
-        const playerImage = new Image();
+        //const playerImage = new Image();
         var src = "../assets/Player";
 
         if (this._isInfected) {
@@ -88,9 +88,9 @@ class Player {
 
         src += this._rotation + ".png";
 
-        playerImage.src = src;
+        //playerImage.src = src;
 
-        this._image = playerImage;
+        this._image_src = src;
     }
 
     // randomly set the x and y coordinate of the player to numbers lower than or equal to the given maximum x and y
@@ -99,3 +99,5 @@ class Player {
         this._yPosition = Math.floor(Math.random() * maxY) + 1;
     }
 }
+
+module.exports = Player;
