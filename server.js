@@ -49,11 +49,8 @@ server.listen(port, () => {
 var players = {};
 var infectedCount = 0;
 io.on('connection', (socket) => {
-    // when a new player joins the game
-    socket.on('new player', (name) => {
-        //make sure client can't cheat and increase their score at start
-        var x = Math.floor(Math.random() * 3640) + 1;
-        var y = Math.floor(Math.random() * 1960) + 1;
+    // initalize a new player object
+    socket.on('new player', (name, maxX, maxY) => {
         var infected;
         if (infectedCount == 0) {
             infected = true;
@@ -61,61 +58,48 @@ io.on('connection', (socket) => {
         } else if (infectedCount > 0) {
             infected = false;
         }
-        // player._xPosition = x;
-        // player._yPosition = y;
-        // player._score = 0;
-        // var player = {
-        //     _username: name,
-        //     _xPosition: x,
-        //     _yPosition: y,
-        //     _isInfected: infected,
-        //     _rotation: 0,
-        //     _score: 0
-        // }
-        //socket.emit('validatePlayer', player);
-        // add player to the players object
-        players[socket.id] = new Player(name, x, y, infected, 0, 0);
+        players[socket.id] = new Player(name, 0, 0, infected, 0, 0);
+        players[socket.id].randomizePos(maxX, maxY);
         console.log(players);
     });
 
     socket.on('updatePlayer', (keyHandler) => {
-        // get the updated player from the client
-        //players[socket.id] = player
-            if (keyHandler._upPressed && players[socket.id].yPosition > 0) {
-                players[socket.id].yPosition -= players[socket.id].speed;
-                players[socket.id].rotation = 0;
-                if (keyHandler._rightPressed && players[socket.id].xPosition < 3840 - 75 - 60) {
-                    players[socket.id].xPosition += players[socket.id].speed;
-                    //players[socket.id].rotation = 45;
-                    players[socket.id].rotation = 90;
-                } else if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
-                    players[socket.id].xPosition -= players[socket.id].speed;
-                    //players[socket.id].rotation = 315;
-                    players[socket.id].rotation = 270;
-                }
-            } else if (keyHandler._rightPressed && players[socket.id].xPosition < 3840 - 75 - 60) {
+        // update the players position and rotation
+        if (keyHandler._upPressed && players[socket.id].yPosition > 0) {
+            players[socket.id].yPosition -= players[socket.id].speed;
+            players[socket.id].rotation = 0;
+            if (keyHandler._rightPressed && players[socket.id].xPosition < 3840 - 75 - 60) {
                 players[socket.id].xPosition += players[socket.id].speed;
+                //players[socket.id].rotation = 45;
                 players[socket.id].rotation = 90;
-                if (keyHandler._downPressed && players[socket.id].yPosition < 2160 - 75 - 60) {
-                    players[socket.id].yPosition += players[socket.id].speed;
-                    //players[socket.id].rotation = 135;
-                    players[socket.id].rotation = 90;
-                }
-            } else if (keyHandler._downPressed && players[socket.id].yPosition < 2160 - 75 - 60) {
-                players[socket.id].yPosition += players[socket.id].speed;
-                players[socket.id].rotation = 180;
-                if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
-                    players[socket.id].xPosition -= players[socket.id].speed;
-                    //players[socket.id].rotation = 225;
-                    players[socket.id].rotation = 270;
-                }
             } else if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
                 players[socket.id].xPosition -= players[socket.id].speed;
+                //players[socket.id].rotation = 315;
                 players[socket.id].rotation = 270;
             }
+        } else if (keyHandler._rightPressed && players[socket.id].xPosition < 3840 - 75 - 60) {
+            players[socket.id].xPosition += players[socket.id].speed;
+            players[socket.id].rotation = 90;
+            if (keyHandler._downPressed && players[socket.id].yPosition < 2160 - 75 - 60) {
+                players[socket.id].yPosition += players[socket.id].speed;
+                //players[socket.id].rotation = 135;
+                players[socket.id].rotation = 90;
+            }
+        } else if (keyHandler._downPressed && players[socket.id].yPosition < 2160 - 75 - 60) {
+            players[socket.id].yPosition += players[socket.id].speed;
+            players[socket.id].rotation = 180;
+            if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
+                players[socket.id].xPosition -= players[socket.id].speed;
+                //players[socket.id].rotation = 225;
+                players[socket.id].rotation = 270;
+            }
+        } else if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
+            players[socket.id].xPosition -= players[socket.id].speed;
+            players[socket.id].rotation = 270;
+        }
 
-            players[socket.id].setImageSource();
-            //setImageSource();
+        // then update the image source
+        players[socket.id].setImageSource();
     });
 
     socket.on('disconnect', (reason) => {
@@ -140,24 +124,3 @@ setInterval(function () {
     }
     io.sockets.emit('gameTime', gameTime);
 }, 1000);
-
-// function setImageSource() {
-
-
-//     console.log("Hi " + player);
-
-//     //const playerImage = new Image();
-//     var src = "../assets/Player";
-
-//     if (player.isInfected) {
-//         src += "I";
-//     } else {
-//         src += "NI";
-//     }
-
-//     src += player.rotation + ".png";
-
-//     //playerImage.src = src;
-
-//     return src;
-// }

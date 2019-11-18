@@ -1,7 +1,9 @@
 var socket = io();
 var name = "Player" + Math.floor(Math.random() * 10000) + 1; // sim unique name
+const canvasWidth = 3840;
+const canvasHeight = 2160;
 
-socket.emit('new player', name);
+socket.emit('new player', name, canvasWidth - 200, canvasHeight - 200);
 
 function formatTime(time) {
   var seconds;

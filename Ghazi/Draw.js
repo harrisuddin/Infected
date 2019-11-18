@@ -1,7 +1,7 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
-canvas.width = 3840;
-canvas.height = 2160;
+canvas.width = canvasWidth
+canvas.height = canvasHeight;
 context.font = "18px Sans-Serif";
 
 socket.on('drawPlayers', (players) => {

@@ -88,8 +88,6 @@ class Player {
 
         src += this._rotation + ".png";
 
-        //playerImage.src = src;
-
         this._image_src = src;
     }
 
