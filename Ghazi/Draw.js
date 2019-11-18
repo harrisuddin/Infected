@@ -19,6 +19,7 @@ socket.on('drawPlayers', (players) => {
   });
 
 function getPlayerImage(imgSrc) {
+    console.log(imgSrc);
     var img = new Image();
     img.src = imgSrc;
     return img;
@@ -52,6 +53,7 @@ function getPlayerImage(imgSrc) {
   }
   
   function drawOther(other) {
+    var otherImage = getPlayerImage(other._image_src);
     drawUsername(other._username, other._xPosition, other._yPosition);
-    drawPlayer(getPlayerImage(other._image_src), other._xPosition, other._yPosition);
+    drawPlayer(otherImage, other._xPosition, other._yPosition);
   }
