@@ -15,8 +15,25 @@
         <a id="timer">TIMER:</a>
         <a id="score">SCORE:</a>
     </div>
+
     <canvas id="gameCanvas"></canvas>
 
+    <div class="box" id="startpagebox">
+        <h1>Infected</h1>
+        <div>
+            <input class="margin" id="un" type="text" placeholder="Username"><br>
+            <input class="margin" id="pw" type="text" placeholder="Password"><br>
+            <input class="margin" id="pw2" type="text" name="Password2" placeholder="Re-enter Password">
+        </div>
+        <input type="button" value="LOGIN" onclick="loginfun()" class="Homebutton" id="Lbutton">
+        <input type="button" value="SIGN UP" onclick="signupfun()" class="Homebutton" id="Singupb">
+        <input type="button" value="START" onclick="startgame()" class="Homebutton" id="Startgame">
+        <input type="button" value="GUEST" onclick="Guest()" class="Homebutton" id="Guest">
+    </div>
+
+    <p style="text-align:center;" id="test"></p>
+
+    <script src="/Ghazi/Login.js"></script>
     <script src="/Ghazi/Player.js"></script>
     <script src="/Ghazi/KeyHandler.js"></script>
     <script src="/Ghazi/Game.js"></script>

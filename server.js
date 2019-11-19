@@ -48,9 +48,16 @@ server.listen(port, () => {
 
 var players = {};
 var infectedCount = 0;
+var gameTime = 121;
+var guestCounter = 1;
 io.on('connection', (socket) => {
     // initalize a new player object
     socket.on('new player', (name, maxX, maxY) => {
+        if (name === "Guest") {
+            name += guestCounter;
+            guestCounter++;
+            socket.emit('newGuestName', name);
+        }
         var infected;
         if (infectedCount == 0) {
             infected = true;
@@ -104,18 +111,29 @@ io.on('connection', (socket) => {
 
     socket.on('disconnect', (reason) => {
         // if the client disconnects then delete them from the game
-        delete players[socket.id];
+
+        if (typeof players[socket.id] !== 'undefined') {
+            if (players[socket.id].isInfected) {
+                infectedCount--;
+            }
+            delete players[socket.id];
+        }
+        // reset the game time if everyone leaves
+        if (players === {}) {
+            gameTime = 121;
+        }
     });
 });
 
 // tell each client to draw all players at 60fps
-setInterval(function () {
-    io.sockets.emit('drawPlayers', players);
+setInterval(() => {
+    if (players !== {}) {
+        io.sockets.emit('drawPlayers', players);
+    }
 }, 1000 / 60);
 
 // This is the game time counter
-var gameTime = 121;
-setInterval(function () {
+setInterval(() => {
     if (Object.keys(players).length > 0) {
         if (gameTime > 0) {
             gameTime--;

@@ -9,7 +9,7 @@ socket.on('drawPlayers', (players) => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     for (var id in players) {
       var p = players[id];
-      if (p._username === name) {
+      if (p._username === Username) {
         drawThisPlayer(p);
       } else {
         drawOther(p);
@@ -19,7 +19,7 @@ socket.on('drawPlayers', (players) => {
   });
 
 function getPlayerImage(imgSrc) {
-    console.log(imgSrc);
+    //console.log(imgSrc);
     var img = new Image();
     img.src = imgSrc;
     return img;

@@ -11,6 +11,34 @@ body {
     background-color: #3498eb; /* sea color */
 }
 
+.box {
+    margin: auto;
+    margin-top: 12em;
+    width: 30%;
+    border: 5px solid Black;
+    padding: 10px;
+    border-radius: 15px;
+    text-align: center;
+    color: white;
+    background-color: #626161;
+    /* height: 15em; */
+}
+
+.margin {
+    margin: 7px;
+}
+
+.Homebutton {
+    padding: 0.5em 0.5em;
+    font-size: 24px;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    background-color: #53A631;
+    border: none;
+    border-radius: 15px;
+}
+
 .topnav {
     overflow: hidden;
     width: 100%;

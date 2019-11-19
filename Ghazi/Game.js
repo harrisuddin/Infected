@@ -1,9 +1,16 @@
 var socket = io();
-var name = "Player" + Math.floor(Math.random() * 10000) + 1; // sim unique name
+//var name = "Player" + Math.floor(Math.random() * 10000) + 1; // sim unique name
 const canvasWidth = 3840;
 const canvasHeight = 2160;
+var gameStarted = false;
 
-socket.emit('new player', name, canvasWidth - 200, canvasHeight - 200);
+function play() {
+  socket.emit('new player', Username, canvasWidth - 200, canvasHeight - 200);
+  socket.on('newGuestName', (name) => {
+    Username = name;
+  });
+  gameStarted = true;
+}
 
 function formatTime(time) {
   var seconds;
@@ -28,7 +35,9 @@ document.addEventListener("keyup", (event) => {
   keyHandler.keyUpHandler(event);
 }, false);
 
-// send the server the updated player
+// send the server the pressed keys
 setInterval(() => {
-  socket.emit('updatePlayer', keyHandler);
+  if (gameStarted) {
+    socket.emit('updatePlayer', keyHandler);
+  }
 }, 1000 / 60);
