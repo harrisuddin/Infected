@@ -1,4 +1,5 @@
 // Dependencies
+require('dotenv/config');
 const express = require('express');
 const db = require('./sql/db.js');
 const Player = require('./Ghazi/Player.js');
@@ -24,20 +25,6 @@ app.use('/Ghazi', express.static(__dirname + '/Ghazi'));
 // Routes
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/Ghazi/index.html'));
-});
-
-// temporary to test db connection
-app.get('/db', (req, res) => {
-    var createUsers = "CREATE TABLE IF NOT EXISTS Users(username VARCHAR(20) PRIMARY KEY, password VARCHAR(256), id VARCHAR(64)) ENGINE=INNODB;"
-    var createScores = "CREATE TABLE IF NOT EXISTS Scores(name VARCHAR(20), score INT, FOREIGN KEY(name) REFERENCES Users(username)) ENGINE=INNODB;"
-    db.query(createUsers, function (err, result) {
-        if (err) throw err;
-        console.log("User table created");
-    });
-    db.query(createScores, function (err, result) {
-        if (err) throw err;
-        console.log("Score table created");
-    });
 });
 
 var port = process.env.PORT || 5000;

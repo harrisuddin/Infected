@@ -30,7 +30,7 @@ function getPlayerImage(imgSrc) {
   }
   
   function drawUsername(name, x, y) {
-    context.fillText(name, x - 5, y - 25);
+    context.fillText(name, x, y - 25);
   }
   
   function drawScore(score) {
