@@ -1,8 +1,9 @@
 // Dependencies
 require('dotenv/config');
 const express = require('express');
-const db = require('./sql/db.js');
+var apiRoute = require('./API');
 const Player = require('./Ghazi/Player.js');
+const bodyParser = require('body-parser');
 var http = require('http');
 /* socket.io allows communication between
 the client and server bidirectionally
@@ -14,6 +15,11 @@ const app = express();
 var server = http.Server(app);
 var io = socketIO(server);
 
+app.use(bodyParser.json());
+
+// Use this route if an an api request comes
+app.use('/api', apiRoute);
+
 // allows the app to use any necessary folders
 app.use('/front-end', express.static(__dirname + '/front-end'));
 app.use('/sql', express.static(__dirname + '/sql'));
@@ -22,7 +28,7 @@ app.use('/assets', express.static(__dirname + '/assets'));
 app.use('/game', express.static(__dirname + '/game'));
 app.use('/Ghazi', express.static(__dirname + '/Ghazi'));
 
-// Routes
+// load the game page
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname + '/Ghazi/index.html'));
 });
@@ -32,6 +38,8 @@ var port = process.env.PORT || 5000;
 server.listen(port, () => {
     console.log(`Listening on port ${port}`);
 });
+
+/* ------------------------- GAME LOGIC --------------------------------- */
 
 var players = {};
 var infectedCount = 0;
@@ -106,7 +114,7 @@ io.on('connection', (socket) => {
             delete players[socket.id];
         }
         // reset the game time if everyone leaves
-        if (players === {}) {
+        if (Object.keys(players).length == 0) {
             gameTime = 121;
         }
     });
