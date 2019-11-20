@@ -9,7 +9,7 @@ socket.on('drawPlayers', (players) => {
     context.clearRect(0, 0, canvas.width, canvas.height);
     for (var id in players) {
       var p = players[id];
-      if (p._username === Username) {
+      if (p._username === username) {
         drawThisPlayer(p);
       } else {
         drawOther(p);

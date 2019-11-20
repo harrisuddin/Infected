@@ -39,6 +39,11 @@ body {
     border-radius: 15px;
 }
 
+#error {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 .topnav {
     overflow: hidden;
     width: 100%;

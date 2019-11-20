@@ -1,13 +1,12 @@
 var socket = io();
-//var name = "Player" + Math.floor(Math.random() * 10000) + 1; // sim unique name
 const canvasWidth = 3840;
 const canvasHeight = 2160;
 var gameStarted = false;
 
 function play() {
-  socket.emit('new player', Username, canvasWidth - 200, canvasHeight - 200);
+  socket.emit('new player', username, canvasWidth - 200, canvasHeight - 200);
   socket.on('newGuestName', (name) => {
-    Username = name;
+    username = name;
   });
   gameStarted = true;
 }

@@ -8,7 +8,7 @@ var forge = require('node-forge');
 
 // Get all the users in the database
 router.get('/users', (req, res) => {
-    db.query("SELECT * FROM Users", (err, result, fields) => {
+    db.query("SELECT username, id FROM Users", (err, result, fields) => {
         if (err) {
             res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
         } else {
@@ -27,23 +27,28 @@ router.post('/users/signup', (req, res) => {
         });
         return;
     }
+
     var id = uuidv4(); // generate unique id
     var md = forge.md.sha256.create(); //https://github.com/digitalbazaar/forge/blob/master/README.md#sha256
-    md.update(password + id); // hash the password with the id as a salt
+    md.update(db.escape(password) + id); // hash the password with the id as a salt
 
-    var findUsernameQuery = "SELECT username FROM Users WHERE username = '" + username + "'";
+    var findUsernameQuery = "SELECT username FROM Users WHERE username = " + db.escape(username);
     db.query(findUsernameQuery, (err, result, fields) => {
         if (err) {
             res.status(400).json(err);
         } else {
-            console.log(result);
             if (result.length == 0) {
-                var insertQuery = "INSERT INTO Users (username, password, id) VALUES ('" + username + "'" + ", " + "'" + md.digest().toHex() + "'" + ", " + "'" + id + "')";
+                var insertQuery = "INSERT INTO Users (username, password, id) VALUES (" + db.escape(username) + ", " + "'" + md.digest().toHex() + "'" + ", " + "'" + id + "')";
                 db.query(insertQuery, (err, result, fields) => {
                     if (err) {
-                        res.status(400).json(err);
+                        res.status(400).json({
+                            message: "Error, please try again"
+                        });
+                        console.log(err);
                     } else {
-                        res.status(201).json(result);
+                        res.status(201).json({
+                            message: "Success, signup user"
+                        });
                     }
                 });
             } else {
@@ -65,10 +70,14 @@ router.post('/users/login', (req, res) => {
         });
         return;
     }
-    var findUserQuery = "SELECT * FROM Users WHERE username = '" + username + "'";
+
+    var findUserQuery = "SELECT * FROM Users WHERE username = " + db.escape(username);
     db.query(findUserQuery, (err, result, fields) => {
         if (err) {
-            res.status(400).json(err);
+            res.status(400).json({
+                message: "Error, please try again"
+            });
+            console.log(err);
         } else {
             var user = result[0];
             if (user == null || user.id == null || user.username == null || user.password == null) {
@@ -78,7 +87,7 @@ router.post('/users/login', (req, res) => {
                 return;
             }
             var md = forge.md.sha256.create();
-            md.update(password + user.id); // hash the password from the post request with the stored id
+            md.update(db.escape(password) + user.id); // hash the password from the post request with the stored id
             if (user.username == username && md.digest().toHex() == user.password) {
                 res.status(200).json({
                     message: "Success, login user"
@@ -92,16 +101,16 @@ router.post('/users/login', (req, res) => {
     });
 });
 
-// Get specific user by id in DB
-router.get('/users/:id', (req, res) => {
-    if (req.params.id == null) {
+// Get specific user by username in DB
+router.get('/users/:username', (req, res) => {
+    if (req.params.username == null) {
         res.status(400).json({
             message: "Error, id is null"
         });
         return;
     }
 
-    var findIdQuery = "SELECT username, id FROM Users WHERE id = '" + req.params.id + "'";
+    var findIdQuery = "SELECT username, id FROM Users WHERE username = " + db.escape(req.params.username);
     db.query(findIdQuery, (err, result, fields) => {
         if (err) {
             res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
@@ -126,17 +135,17 @@ router.get('/scores', (req, res) => {
 
 // Add a score to DB
 router.post('/scores', (req, res) => {
-    var id = req.body.id;
+    var username = req.body.username;
     var score = req.body.score;
 
-    if (id == null || score == null) {
+    if (username == null || score == null) {
         res.status(400).json({
             message: "Error, id or score is null"
         });
         return;
     }
 
-    var addScoreQuery = "INSERT INTO Scores (userId, score) VALUES ('" + id + "'" + ", " + score + ")";
+    var addScoreQuery = "INSERT INTO Scores (name, score) VALUES (" + db.escape(username) + ", " + db.escape(score) + ")";
     db.query(addScoreQuery, (err, result, fields) => {
         if (err) {
             res.status(400).json(err);
@@ -146,17 +155,18 @@ router.post('/scores', (req, res) => {
     });
 });
 
-// Get specific score by id in DB
-router.get('/scores/:id', (req, res) => {
+// Get specific score by username in DB
+router.get('/scores/:username', (req, res) => {
 
-    if (req.params.id == null) {
+    var username = req.body.username;
+    if (username == null) {
         res.status(400).json({
-            message: "Error, id is null"
+            message: "Error, username is null"
         });
         return;
     }
 
-    var query = "SELECT * FROM Scores WHERE userId = '" + req.params.id + "'";
+    var query = "SELECT * FROM Scores WHERE name = " + db.escape(username);
     db.query(query, (err, result, fields) => {
         if (err) {
             res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status

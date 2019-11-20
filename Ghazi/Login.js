@@ -1,11 +1,13 @@
-var Username; // this is the username of the player and is used in other JS files
-var Password;
-var Password2;
-var Signupvalid;
-var Counter = 0;
-
+var username; // this is the username of the player and is used in other JS files
+var password;
+var password2;
+var loginSignupValid;
+var error = document.getElementById("error");
 
 function Startup() {
+
+    error.innerHTML = "";
+    error.style.display = "none";
     document.getElementById("pw2").style.display = "none";
     document.getElementById("Topnav").style.display = "none";
     document.getElementById("Startgame").style.display = "none";
@@ -32,32 +34,58 @@ function signupfun() {
 
 //this function is for when the user is siging up
 function signupfun2() {
-    Username = document.getElementById("un").value;
-    Password = document.getElementById("pw").value;
-    Password2 = document.getElementById("pw2").value;
-    if (Username == "" || Username.length < 10) {
-        alert("Username has to be between 0 to 10 characters");
-        Signupvalid = false;
-    } else {
-        Signupvalid = true;
+    error.innerHTML = "";
+    username = document.getElementById("un").value;
+    password = document.getElementById("pw").value;
+    password2 = document.getElementById("pw2").value;
+    loginSignupValid = true;
+
+    var isValidUsername = Username.isValid(username);
+    if (isValidUsername !== true) {
+        error.innerHTML += isValidUsername + "<br>";
+        error.style.display = "block";
+        loginSignupValid = false;
     }
 
-    if (Password == "" || Password.length < 10) {
-        alert("Password has to be between 0 to 10 characters");
-        Signupvalid = false;
-    } else {
-        Signupvalid = true;
+    var isValidPassword = Password.isValid(password);
+    if (isValidPassword !== true) {
+        error.innerHTML += isValidPassword + "<br>";
+        error.style.display = "block";
+        loginSignupValid = false;
     }
 
-    if (Password2 == "" || Password2.length < 10) {
-        alert("Re-enter Password has to be between 0 to 10 characters");
-        Signupvalid = false;
-    } else {
-        Signupvalid = true;
+    if (password != password2) {
+        error.innerHTML += "Error, the passwords don't match." + "<br>";
+        error.style.display = "block";
+        loginSignupValid = false;
     }
 
+    if (loginSignupValid) {
 
-    if (Signupvalid == true) {
+        var data = {
+            "username": username,
+            "password": password
+        };
+
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: '/api/users/signup/',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            // success: function (result) {
+            //     console.log(result);
+            // },
+            error: function (xhr, status, error) {
+                var errorResponse = xhr.responseJSON;
+                document.getElementById("error").innerHTML += errorResponse.message + "<br>";
+                document.getElementById("error").style.display = "block";
+                loginSignupValid = false;
+            }
+        });
+    }
+
+    if (loginSignupValid == true) {
         document.getElementById("Lbutton").style.display = "none";
         document.getElementById("Singupb").style.display = "none";
         document.getElementById("un").style.display = "none";
@@ -77,8 +105,63 @@ function orlogin() {
 
 
 function loginfun() {
-    Username = document.getElementById("un").value;
-    Password = document.getElementById("pw").value;
+    error.innerHTML = "";
+    username = document.getElementById("un").value;
+    password = document.getElementById("pw").value;
+    loginSignupValid = true;
+
+    var isValidUsername = Username.isValid(username);
+    if (isValidUsername !== true) {
+        error.innerHTML += isValidUsername + "<br>";
+        error.style.display = "block";
+        loginSignupValid = false;
+    }
+
+    var isValidPassword = Password.isValid(password);
+    if (isValidPassword !== true) {
+        error.innerHTML += isValidPassword + "<br>";
+        error.style.display = "block";
+        loginSignupValid = false;
+    }
+
+    if (loginSignupValid) {
+
+        var data = {
+            "username": username,
+            "password": password
+        };
+
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: '/api/users/login/',
+            data: JSON.stringify(data),
+            contentType: 'application/json',
+            // success: function (result) {
+            //     console.log(result);
+            // },
+            error: function (xhr, status, error) {
+                var errorResponse = xhr.responseJSON;
+                document.getElementById("error").innerHTML += errorResponse.message + "<br>";
+                document.getElementById("error").style.display = "block";
+                loginSignupValid = false;
+            }
+        });
+    }
+
+    if (loginSignupValid == true) {
+        document.getElementById("Lbutton").style.display = "none";
+        document.getElementById("Singupb").style.display = "none";
+        document.getElementById("un").style.display = "none";
+        document.getElementById("pw").style.display = "none";
+        document.getElementById("pw2").style.display = "none";
+        document.getElementById("Startgame").style.display = "inline";
+        document.getElementById("Guest").style.display = "none";
+    }
+
+}
+
+function Guest() {
     document.getElementById("Lbutton").style.display = "none";
     document.getElementById("Singupb").style.display = "none";
     document.getElementById("un").style.display = "none";
@@ -86,17 +169,7 @@ function loginfun() {
     document.getElementById("pw2").style.display = "none";
     document.getElementById("Startgame").style.display = "inline";
     document.getElementById("Guest").style.display = "none";
-}
-
-function Guest() {
-  document.getElementById("Lbutton").style.display = "none";
-  document.getElementById("Singupb").style.display = "none";
-  document.getElementById("un").style.display = "none";
-  document.getElementById("pw").style.display = "none";
-  document.getElementById("pw2").style.display = "none";
-  document.getElementById("Startgame").style.display = "inline";
-  document.getElementById("Guest").style.display = "none";
-  Username = "Guest";
+    username = null;
 }
 
 

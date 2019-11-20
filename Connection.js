@@ -11,8 +11,8 @@ var connection = mysql.createConnection({
 connection.connect((err) => {
     if (err) throw err;
     console.log("Connected to DB");
-    var createUsers = "CREATE TABLE IF NOT EXISTS Users(username VARCHAR(20), password VARCHAR(256), id VARCHAR(64) PRIMARY KEY) ENGINE=INNODB;"
-    var createScores = "CREATE TABLE IF NOT EXISTS Scores(userId VARCHAR(64), score INT, FOREIGN KEY(userId) REFERENCES Users(id)) ENGINE=INNODB;"
+    var createUsers = "CREATE TABLE IF NOT EXISTS Users(username VARCHAR(64) PRIMARY KEY, password VARCHAR(256), id VARCHAR(64)) ENGINE=INNODB;"
+    var createScores = "CREATE TABLE IF NOT EXISTS Scores(name VARCHAR(64), score INT, FOREIGN KEY(name) REFERENCES Users(username)) ENGINE=INNODB;"
     connection.query(createUsers, (err, result) => {
         if (err) throw err;
         console.log("User table exists/created");

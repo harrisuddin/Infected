@@ -2,6 +2,7 @@
 require('dotenv/config');
 const express = require('express');
 var apiRoute = require('./API');
+const uuidv4 = require('uuid/v4');
 const Player = require('./Ghazi/Player.js');
 const bodyParser = require('body-parser');
 var http = require('http');
@@ -44,13 +45,11 @@ server.listen(port, () => {
 var players = {};
 var infectedCount = 0;
 var gameTime = 121;
-var guestCounter = 1;
 io.on('connection', (socket) => {
     // initalize a new player object
     socket.on('new player', (name, maxX, maxY) => {
-        if (name === "Guest") {
-            name += guestCounter;
-            guestCounter++;
+        if (name === null) {
+            name = uuidv4().substring(0, 14); // the name if the first 15 characters of the unique id
             socket.emit('newGuestName', name);
         }
         var infected;
