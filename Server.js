@@ -147,10 +147,12 @@ io.on('connection', (socket) => {
             }
         }
 
-        // then update the image source
-        players[index].setImageSource();
-        // and update the player width/height
-        players[index].setPlayerSize();
+        if (typeof players[index] !== 'undefined') {
+            // then update the image source
+            players[index].setImageSource();
+            // and update the player width/height
+            players[index].setPlayerSize();
+        }
     });
 
     socket.on('disconnect', (reason) => {
