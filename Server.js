@@ -3,7 +3,7 @@ require('dotenv/config');
 const express = require('express');
 var apiRoute = require('./API');
 const uuidv4 = require('uuid/v4');
-const Player = require('./Ghazi/Player');
+const Player = require('./Ghazi/Player.js');
 const bodyParser = require('body-parser');
 var http = require('http');
 /* socket.io allows communication between
