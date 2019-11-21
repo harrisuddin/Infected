@@ -44,7 +44,7 @@ server.listen(port, () => {
 
 var players = [];
 var infectedCount = 0;
-var gameTime = 121;
+var gameTime = 120;
 
 function getPlayerIndex(arr, id) {
     for (var i = 0, length = arr.length; i < length; i++) {
@@ -111,10 +111,12 @@ io.on('connection', (socket) => {
             players[index].rotation = 270;
         }
 
-        // then update the image source
-        players[index].setImageSource();
-        // and update the player width/height
-        players[index].setPlayerSize();
+        if (typeof players[index] !== 'undefined') {
+            // then update the image source
+            players[index].setImageSource();
+            // and update the player width/height
+            players[index].setPlayerSize();
+        }
 
         // check for collisions
         var sortedPlayers = players; // make copy of players
@@ -124,7 +126,7 @@ io.on('connection', (socket) => {
             });
 
             for (var i = 1, length = sortedPlayers.length; i < length; i++) {
-                player = sortedPlayers[i-1];
+                player = sortedPlayers[i - 1];
                 player2 = sortedPlayers[i];
                 if (player.xPosition < player2.xPosition + player2.width &&
                     player.xPosition + player.width > player2.xPosition &&
@@ -143,7 +145,7 @@ io.on('connection', (socket) => {
                     }
                 }
             }
-        }        
+        }
 
         // then update the image source
         players[index].setImageSource();
