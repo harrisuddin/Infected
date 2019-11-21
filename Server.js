@@ -75,6 +75,7 @@ io.on('connection', (socket) => {
     socket.on('updatePlayer', (keyHandler) => {
 
         var index = getPlayerIndex(players, socket.id);
+        //console.log(index);
 
         // update the players position and rotation
         if (keyHandler._upPressed && players[index].yPosition > 0) {
@@ -138,11 +139,11 @@ io.on('connection', (socket) => {
                             player.isInfected = true;
                             player2.score += 5;
                         }
-                        infectedCount++;
+                        infectedCount = infectedCount + 1;
                     }
                 }
             }
-        }
+        }        
 
         // then update the image source
         players[index].setImageSource();
@@ -157,7 +158,7 @@ io.on('connection', (socket) => {
 
         if (index != -1) {
             if (players[index].isInfected) {
-                infectedCount--;
+                infectedCount = infectedCount - 1;
             }
             players.splice(index, 1);
         }
