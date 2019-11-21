@@ -1,17 +1,23 @@
 class Player {
-    constructor(username, xPosition, yPosition, isInfected, rotation, score) {
+    constructor(username, maxX, maxY, isInfected, id) {
         this._username = username;
-        this._xPosition = xPosition;
-        this._yPosition = yPosition;
         this._isInfected = isInfected;
+        this._id = id;
 
-        this._score = score;
-        this._rotation = rotation;
+        this._xPosition;
+        this._yPosition;
+        this.randomizePos(maxX, maxY);
+
+        this._score = 0;
+        this._rotation = 0;
         this._speed = 5;
 
         this._image_src;
-
         this.setImageSource();
+
+        this._width;
+        this._height;
+        this.setPlayerSize();
     }
 
     get username() {
@@ -63,10 +69,6 @@ class Player {
         this._speed = speed;
     }
 
-    get image() {
-        return this._image;
-    }
-
     get score() {
         return this._score;
     }
@@ -75,9 +77,24 @@ class Player {
         this._score = score;
     }
 
+    get width() {
+        return this._width;
+    }
+
+    set width(width) {
+        this._width = width;
+    }
+
+    get height() {
+        return this._height;
+    }
+
+    set height(height) {
+        this._height = height;
+    }
+    
     setImageSource() {
 
-        //const playerImage = new Image();
         var src = "../assets/Player";
 
         if (this._isInfected) {
@@ -89,6 +106,23 @@ class Player {
         src += this._rotation + ".png";
 
         this._image_src = src;
+    }
+
+    setPlayerSize() {
+        if (this._isInfected) {
+            // if the player is facing up or down
+            if (this._rotation == 0 || this._rotation == 180) {
+                this._width = 75;
+                this._height = 100;
+            // if the player is facing left or right
+            } else {
+                this._width = 100;
+                this._height = 75;
+            }
+        } else {
+            this._height = 75;
+            this._width = 75;
+        }
     }
 
     // randomly set the x and y coordinate of the player to numbers lower than or equal to the given maximum x and y

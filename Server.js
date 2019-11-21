@@ -3,7 +3,7 @@ require('dotenv/config');
 const express = require('express');
 var apiRoute = require('./API');
 const uuidv4 = require('uuid/v4');
-const Player = require('./Ghazi/Player.js');
+const Player = require('./Ghazi/Player');
 const bodyParser = require('body-parser');
 var http = require('http');
 /* socket.io allows communication between
@@ -42,14 +42,22 @@ server.listen(port, () => {
 
 /* ------------------------- GAME LOGIC --------------------------------- */
 
-var players = {};
+var players = [];
 var infectedCount = 0;
 var gameTime = 121;
+
+function getPlayerIndex(arr, id) {
+    for (var i = 0, length = arr.length; i < length; i++) {
+        if (arr[i]._id == id) return i;
+    }
+    return -1; // if not found return -1
+}
+
 io.on('connection', (socket) => {
     // initalize a new player object
     socket.on('new player', (name, maxX, maxY) => {
         if (name === null) {
-            name = uuidv4().substring(0, 14); // the name if the first 15 characters of the unique id
+            name = "Guest" + uuidv4().substring(0, 5); // the name is guest + the first 5 characters of the unique id
             socket.emit('newGuestName', name);
         }
         var infected;
@@ -59,61 +67,102 @@ io.on('connection', (socket) => {
         } else if (infectedCount > 0) {
             infected = false;
         }
-        players[socket.id] = new Player(name, 0, 0, infected, 0, 0);
-        players[socket.id].randomizePos(maxX, maxY);
+        players.push(new Player(name, maxX, maxY, infected, socket.id));
+        //players[socket.id].randomizePos(maxX, maxY);
         console.log(players);
     });
 
     socket.on('updatePlayer', (keyHandler) => {
+
+        var index = getPlayerIndex(players, socket.id);
+
         // update the players position and rotation
-        if (keyHandler._upPressed && players[socket.id].yPosition > 0) {
-            players[socket.id].yPosition -= players[socket.id].speed;
-            players[socket.id].rotation = 0;
-            if (keyHandler._rightPressed && players[socket.id].xPosition < 3840 - 75 - 60) {
-                players[socket.id].xPosition += players[socket.id].speed;
+        if (keyHandler._upPressed && players[index].yPosition > 0) {
+            players[index].yPosition -= players[index].speed;
+            players[index].rotation = 0;
+            if (keyHandler._rightPressed && players[index].xPosition < 3840 - 75 - 60) {
+                players[index].xPosition += players[index].speed;
                 //players[socket.id].rotation = 45;
-                players[socket.id].rotation = 90;
-            } else if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
-                players[socket.id].xPosition -= players[socket.id].speed;
-                //players[socket.id].rotation = 315;
-                players[socket.id].rotation = 270;
+                players[index].rotation = 90;
+            } else if (keyHandler._leftPressed && players[index].xPosition > 0) {
+                players[index].xPosition -= players[index].speed;
+                //players[index].rotation = 315;
+                players[index].rotation = 270;
             }
-        } else if (keyHandler._rightPressed && players[socket.id].xPosition < 3840 - 75 - 60) {
-            players[socket.id].xPosition += players[socket.id].speed;
-            players[socket.id].rotation = 90;
-            if (keyHandler._downPressed && players[socket.id].yPosition < 2160 - 75 - 60) {
-                players[socket.id].yPosition += players[socket.id].speed;
-                //players[socket.id].rotation = 135;
-                players[socket.id].rotation = 90;
+        } else if (keyHandler._rightPressed && players[index].xPosition < 3840 - 75 - 60) {
+            players[index].xPosition += players[index].speed;
+            players[index].rotation = 90;
+            if (keyHandler._downPressed && players[index].yPosition < 2160 - 75 - 60) {
+                players[index].yPosition += players[index].speed;
+                //players[index].rotation = 135;
+                players[index].rotation = 90;
             }
-        } else if (keyHandler._downPressed && players[socket.id].yPosition < 2160 - 75 - 60) {
-            players[socket.id].yPosition += players[socket.id].speed;
-            players[socket.id].rotation = 180;
-            if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
-                players[socket.id].xPosition -= players[socket.id].speed;
-                //players[socket.id].rotation = 225;
-                players[socket.id].rotation = 270;
+        } else if (keyHandler._downPressed && players[index].yPosition < 2160 - 75 - 60) {
+            players[index].yPosition += players[index].speed;
+            players[index].rotation = 180;
+            if (keyHandler._leftPressed && players[index].xPosition > 0) {
+                players[index].xPosition -= players[index].speed;
+                //players[index].rotation = 225;
+                players[index].rotation = 270;
             }
-        } else if (keyHandler._leftPressed && players[socket.id].xPosition > 0) {
-            players[socket.id].xPosition -= players[socket.id].speed;
-            players[socket.id].rotation = 270;
+        } else if (keyHandler._leftPressed && players[index].xPosition > 0) {
+            players[index].xPosition -= players[index].speed;
+            players[index].rotation = 270;
         }
 
         // then update the image source
-        players[socket.id].setImageSource();
+        players[index].setImageSource();
+        // and update the player width/height
+        players[index].setPlayerSize();
+
+        // check for collisions
+        var sortedPlayers = players; // make copy of players
+        if (players.length > 1) {
+            sortedPlayers.sort((a, b) => {
+                return a._xPosition - b._xPosition; // sort from lowest to highest xPosition
+            });
+
+            for (var i = 1, length = sortedPlayers.length; i < length; i++) {
+                player = sortedPlayers[i-1];
+                player2 = sortedPlayers[i];
+                if (player.xPosition < player2.xPosition + player2.width &&
+                    player.xPosition + player.width > player2.xPosition &&
+                    player.yPosition < player2.yPosition + player2.height &&
+                    player.yPosition + player.height > player2.yPosition) {
+                    if (player.isInfected || player2.isInfected) {
+                        if (player.isInfected && !player2.isInfected) {
+                            player2.isInfected = true;
+                            player.score += 5;
+                        }
+                        if (!player.isInfected && player2.isInfected) {
+                            player.isInfected = true;
+                            player2.score += 5;
+                        }
+                        infectedCount++;
+                    }
+                }
+            }
+        }
+
+        // then update the image source
+        players[index].setImageSource();
+        // and update the player width/height
+        players[index].setPlayerSize();
     });
 
     socket.on('disconnect', (reason) => {
         // if the client disconnects then delete them from the game
 
-        if (typeof players[socket.id] !== 'undefined') {
-            if (players[socket.id].isInfected) {
+        var index = getPlayerIndex(players, socket.id);
+
+        if (index != -1) {
+            if (players[index].isInfected) {
                 infectedCount--;
             }
-            delete players[socket.id];
+            players.splice(index, 1);
         }
         // reset the game time if everyone leaves
-        if (Object.keys(players).length == 0) {
+        if (players.length == 0) {
             gameTime = 121;
         }
     });
@@ -121,14 +170,14 @@ io.on('connection', (socket) => {
 
 // tell each client to draw all players at 60fps
 setInterval(() => {
-    if (players !== {}) {
+    if (players.length > 0) {
         io.sockets.emit('drawPlayers', players);
     }
 }, 1000 / 60);
 
 // This is the game time counter
 setInterval(() => {
-    if (Object.keys(players).length > 0) {
+    if (players.length > 0) {
         if (gameTime > 0) {
             gameTime--;
         }
