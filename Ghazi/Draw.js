@@ -36,6 +36,23 @@ function drawScore(score) {
   document.getElementById("score").innerHTML = "SCORE: " + score;
 }
 
+function drawHighScore() {
+
+  $.ajax({
+    async: true,
+    type: 'GET',
+    url: '/api/scores/' + username,
+    // data: JSON.stringify(data),
+    // contentType: 'application/json',
+    success: function (result) {
+      document.getElementById("highScore").innerHTML = "HIGH SCORE: " + result.highScore;
+    },
+    error: function (xhr, status, error) {
+      document.getElementById("highScore").innerHTML = "HIGH SCORE: " + 0;
+    }
+  });
+}
+
 // translate the screen so that the player is in the center of the screen
 function centerScreen(player, img) {
   var transX = (-player._xPosition + window.innerWidth / 2) - (img.width / 2);

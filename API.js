@@ -6,11 +6,13 @@ var forge = require('node-forge');
 
 // Users Routes
 
+// For error codes, https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
 // Get all the users in the database
 router.get('/users', (req, res) => {
     db.query("SELECT username, id FROM Users", (err, result, fields) => {
         if (err) {
-            res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+            res.status(404).json(err); 
         } else {
             res.status(200).json(result);
         }
@@ -113,7 +115,7 @@ router.get('/users/:username', (req, res) => {
     var findIdQuery = "SELECT username, id FROM Users WHERE username = " + db.escape(req.params.username);
     db.query(findIdQuery, (err, result, fields) => {
         if (err) {
-            res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+            res.status(404).json(err); 
         } else {
             res.status(200).json(result);
         }
@@ -122,11 +124,11 @@ router.get('/users/:username', (req, res) => {
 
 // Scores Route
 
-// Get all the scores in the database
+// Get all the high scores in the database
 router.get('/scores', (req, res) => {
-    db.query("SELECT * FROM Scores", (err, result, fields) => {
+    db.query("SELECT name, MAX(score) AS highScore FROM Scores GROUP BY name ORDER BY highScore DESC", (err, result, fields) => {
         if (err) {
-            res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+            res.status(404).json(err);
         } else {
             res.status(200).json(result);
         }
@@ -155,10 +157,10 @@ router.post('/scores', (req, res) => {
     });
 });
 
-// Get specific score by username in DB
+// Get high score by username in DB
 router.get('/scores/:username', (req, res) => {
 
-    var username = req.body.username;
+    var username = req.params.username;
     if (username == null) {
         res.status(400).json({
             message: "Error, username is null"
@@ -166,12 +168,18 @@ router.get('/scores/:username', (req, res) => {
         return;
     }
 
-    var query = "SELECT * FROM Scores WHERE name = " + db.escape(username);
+    var query = "SELECT MAX(score) AS highScore FROM Scores WHERE name = " + db.escape(username);
     db.query(query, (err, result, fields) => {
         if (err) {
-            res.status(404).json(err); //https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+            res.status(404).json(err);
         } else {
-            res.status(200).json(result);
+            if (result[0].highScore == null) {
+                res.status(404).json({
+                    message: "Error, please try again"
+                });
+            } else {
+                res.status(200).json(result[0]);
+            }
         }
     });
 });

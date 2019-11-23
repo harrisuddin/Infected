@@ -3,6 +3,7 @@ var password;
 var password2;
 var loginSignupValid;
 var error = document.getElementById("error");
+var isGuest = false;
 
 function Startup() {
 
@@ -170,6 +171,7 @@ function Guest() {
     document.getElementById("Startgame").style.display = "inline";
     document.getElementById("Guest").style.display = "none";
     username = null;
+    isGuest = true;
 }
 
 

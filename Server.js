@@ -168,7 +168,8 @@ io.on('connection', (socket) => {
         }
         // reset the game time if everyone leaves
         if (players.length == 0) {
-            gameTime = 121;
+            infectedCount = 0;
+            gameTime = 120;
         }
     });
 });

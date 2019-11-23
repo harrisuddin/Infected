@@ -9,6 +9,10 @@ function play() {
     username = name;
   });
   gameStarted = true;
+  // if the player is not a guest then display their high score
+  if (!isGuest) {
+    drawHighScore(); // function in Draw.js
+  }
 }
 
 function formatTime(time) {
