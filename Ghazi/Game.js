@@ -37,6 +37,9 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
   keyHandler.keyUpHandler(event);
 }, false);
+document.addEventListener("touchstart" || "touchmove" || "touchend" || "touchcancel", (event) => {
+  keyHandler.touchHandler(event);
+}, false);
 
 // send the server the pressed keys
 setInterval(() => {
