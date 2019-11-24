@@ -6,6 +6,9 @@ class KeyHandler
         this._downPressed = false;
         this._rightPressed = false;
         this._leftPressed = false;
+
+        this._touchX;
+        this._touchY
     }
 
     get upPressed() 
@@ -78,10 +81,43 @@ class KeyHandler
 
     touchHandler(e) 
     {
-        if(e.type == "touchstart" || e.type == "touchmove" || e.type == "touchend" || e.type == "touchcancel") 
+        if (e.type == "touchstart" || e.type == "touchmove") 
         {
-            //var touch = e.originalEvent.touches[0] || e.changedTouches[0];
-            this._leftPressed = true;
+            this._touchX = e.touches[0].clientX;
+            this._touchY = e.touches[0].clientY;
+
+            if (this._touchX > window.innerWidth / 2 + window.innerWidth / 8) 
+            {
+                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 8) 
+                {
+                    this._rightPressed = true;
+                    this._downPressed = true;
+                }
+                if (this._touchY < window.innerHeight / 2 + window.innerHeight / 8) 
+                {
+                    this._rightPressed = true;
+                    this._downPressed = true;
+                }
+                else  
+                {
+                    this._rightPressed = true;
+                }
+            }
+            if (this._touchX < window.innerWidth / 2 + window.innerWidth / 8) 
+            {
+                
+            }
+            else 
+            {
+
+            }
+        }
+        else if (e.type == "touchend" || e.type == "touchcancel")
+        {
+            this._upPressed = false;
+            this._rightPressed = false;
+            this._downPressed = false;
+            this._leftPressed = false;
         }
     }
 }
