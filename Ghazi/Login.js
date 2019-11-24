@@ -199,6 +199,7 @@ function startgame() {
 
 function endScreen(){
     document.getElementById("startpagebox").style.display = "block";
+    document.getElementById("Startgame").style.display = "none";
     document.getElementById("gameCanvas").style.display = "none";
     document.getElementById("Instructions").style.display = "none";
     document.getElementById("Instructionsheader").style.display = "none";
