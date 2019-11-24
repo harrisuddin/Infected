@@ -199,8 +199,13 @@ function startgame() {
 
 function endScreen(){
     document.getElementById("startpagebox").style.display = "block";
-    document.getElementById("Startgame").style.display = "inline";
     document.getElementById("gameCanvas").style.display = "none";
+    document.getElementById("Instructions").style.display = "none";
+    document.getElementById("Instructionsheader").style.display = "none";
+    document.getElementById("Topnav").style.display = "none";
+    document.getElementById("scoreEndscreen").innerHTML = "Your Score: " + document.getElementById("scoreValue").innerHTML;
+
+
 }
 
 onload = Startup;

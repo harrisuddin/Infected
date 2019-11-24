@@ -6,7 +6,7 @@ canvas.height = canvasHeight;
 context.font = "18px Sans-Serif";
 
 socket.on('drawPlayers', (players) => {
-  
+
   context.save();
   context.clearRect(0, 0, canvas.width, canvas.height);
   resetTable();
@@ -44,7 +44,7 @@ function drawUsername(name, x, y) {
 }
 
 function drawScore(score) {
-  document.getElementById("score").innerHTML = "SCORE: " + score;
+  document.getElementById("scoreValue").innerHTML = "SCORE: " + score;
 }
 
 function drawHighScore() {
