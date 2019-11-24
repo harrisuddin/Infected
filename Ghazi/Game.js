@@ -27,6 +27,9 @@ function formatTime(time) {
 
 // Every second, update the game time
 socket.on('gameTime', (time) => {
+  if (time === 0) {
+    endScreen();
+  }
   document.getElementById("timer").innerHTML = "TIME REMAINING: " + formatTime(time);
 });
 

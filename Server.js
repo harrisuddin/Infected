@@ -23,6 +23,8 @@ app.use('/api', apiRoute);
 
 // allows the app to use any necessary folders
 app.use('/front-end', express.static(__dirname + '/front-end'));
+app.use('/sql', express.static(__dirname + '/sql'));
+app.use('/static', express.static(__dirname + '/static'));
 app.use('/assets', express.static(__dirname + '/assets'));
 app.use('/game', express.static(__dirname + '/game'));
 app.use('/Ghazi', express.static(__dirname + '/Ghazi'));
@@ -42,7 +44,7 @@ server.listen(port, () => {
 
 var players = [];
 var infectedCount = 0;
-var gameTime = 120;
+var gameTime = 10;
 
 function getPlayerIndex(arr, id) {
     for (var i = 0, length = arr.length; i < length; i++) {
@@ -66,13 +68,15 @@ io.on('connection', (socket) => {
             infected = false;
         }
         players.push(new Player(name, maxX, maxY, infected, socket.id));
+        //players[socket.id].randomizePos(maxX, maxY);
         console.log(players);
     });
 
     socket.on('updatePlayer', (keyHandler) => {
 
         var index = getPlayerIndex(players, socket.id);
-
+        //console.log(index);
+        if (gameTime > 0) {
         // update the players position and rotation
         if (keyHandler._upPressed && players[index].yPosition > 0) {
             players[index].yPosition -= players[index].speed;
@@ -106,7 +110,7 @@ io.on('connection', (socket) => {
             players[index].xPosition -= players[index].speed;
             players[index].rotation = 270;
         }
-
+}
         if (typeof players[index] !== 'undefined') {
             // then update the image source
             players[index].setImageSource();
@@ -118,7 +122,6 @@ io.on('connection', (socket) => {
         var sortedPlayers = players; // make copy of players
         if (players.length > 1) {
             sortedPlayers.sort((a, b) => {
-                // https://www.w3schools.com/js/js_array_sort.asp
                 return a._xPosition - b._xPosition; // sort from lowest to highest xPosition
             });
 
@@ -166,7 +169,7 @@ io.on('connection', (socket) => {
         // reset the game time if everyone leaves
         if (players.length == 0) {
             infectedCount = 0;
-            gameTime = 120;
+            gameTime = 10;
         }
     });
 });
@@ -174,10 +177,6 @@ io.on('connection', (socket) => {
 // tell each client to draw all players at 60fps
 setInterval(() => {
     if (players.length > 0) {
-        players.sort((a, b) => {
-            // https://www.w3schools.com/js/js_array_sort.asp
-            return b._score - a._score; // sort from highest to lowest
-        });
         io.sockets.emit('drawPlayers', players);
     }
 }, 1000 / 60);
@@ -187,6 +186,11 @@ setInterval(() => {
     if (players.length > 0) {
         if (gameTime > 0) {
             gameTime--;
+            for (var i = 0, length = players.length; i < length; i++) {
+              if (!players[i].isInfected){
+                players[i].score++;
+              }
+            }
         }
         console.log(gameTime);
     }
