@@ -13,6 +13,8 @@ function Startup() {
     document.getElementById("Topnav").style.display = "none";
     document.getElementById("Startgame").style.display = "none";
     document.getElementById("gameCanvas").style.display = "none";
+    document.getElementById("Instructions").style.display = "none";
+
 }
 
 function topnav() {
@@ -93,6 +95,9 @@ function signupfun2() {
         document.getElementById("pw").style.display = "none";
         document.getElementById("pw2").style.display = "none";
         document.getElementById("Startgame").style.display = "inline";
+        document.getElementById("Instructions").style.display = "inline";
+
+
     }
 }
 
@@ -158,6 +163,8 @@ function loginfun() {
         document.getElementById("pw2").style.display = "none";
         document.getElementById("Startgame").style.display = "inline";
         document.getElementById("Guest").style.display = "none";
+        document.getElementById("Instructions").style.display = "inline";
+
     }
 
 }
@@ -171,6 +178,8 @@ function Guest() {
     document.getElementById("pw2").style.display = "none";
     document.getElementById("Startgame").style.display = "inline";
     document.getElementById("Guest").style.display = "none";
+    document.getElementById("Instructions").style.display = "inline";
+
     username = null;
     isGuest = true;
 }
