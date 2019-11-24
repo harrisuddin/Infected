@@ -183,4 +183,9 @@ function startgame() {
     play();
 }
 
+function endScreen(){
+    document.getElementById("startpagebox").style.display = "block";
+    document.getElementById("Startgame").style.display = "inline";
+}
+
 onload = Startup;
