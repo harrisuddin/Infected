@@ -204,7 +204,7 @@ function endScreen(){
     document.getElementById("Instructions").style.display = "none";
     document.getElementById("Instructionsheader").style.display = "none";
     document.getElementById("Topnav").style.display = "none";
-    document.getElementById("scoreEndscreen").innerHTML = "Your Score: " + document.getElementById("scoreValue").innerHTML;
+    document.getElementById("scoreEndscreen").innerHTML = document.getElementById("scoreValue").innerHTML;
 
 
 }
