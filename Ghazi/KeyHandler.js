@@ -79,7 +79,7 @@ class KeyHandler
         }
     }
 
-    touchHandler(e) 
+    touchStartHandler(e) 
     {
         if (e.type == "touchstart" || e.type == "touchmove") 
         {
@@ -132,7 +132,11 @@ class KeyHandler
                 }
             }
         }
-        else if (e.type == "touchend" || e.type == "touchcancel")
+    }
+
+    touchEndHandler() 
+    {
+        if (e.type == "touchend" || e.type == "touchcancel")
         {
             this._upPressed = false;
             this._rightPressed = false;

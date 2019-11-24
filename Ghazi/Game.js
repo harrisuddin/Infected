@@ -40,8 +40,11 @@ document.addEventListener("keydown", (event) => {
 document.addEventListener("keyup", (event) => {
   keyHandler.keyUpHandler(event);
 }, false);
-document.addEventListener("touchstart" || "touchmove" || "touchend" || "touchcancel", (event) => {
-  keyHandler.touchHandler(event);
+document.addEventListener("touchstart" || "touchmove", (event) => {
+  keyHandler.touchsStartHandler(event);
+}, false);
+document.addEventListener("touchend" || "touchcancel", (event) => {
+  keyHandler.touchEndHandler(event);
 }, false);
 
 // send the server the pressed keys
