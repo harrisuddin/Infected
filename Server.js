@@ -44,7 +44,7 @@ server.listen(port, () => {
 
 var players = [];
 var infectedCount = 0;
-var gameTime = 120;
+var gameTime = 10;
 
 function getPlayerIndex(arr, id) {
     for (var i = 0, length = arr.length; i < length; i++) {
@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
 
         var index = getPlayerIndex(players, socket.id);
         //console.log(index);
-        if (gameTime == 0){
+        if (gameTime == 0) {
         // update the players position and rotation
         if (keyHandler._upPressed && players[index].yPosition > 0) {
             players[index].yPosition -= players[index].speed;
@@ -169,7 +169,7 @@ io.on('connection', (socket) => {
         // reset the game time if everyone leaves
         if (players.length == 0) {
             infectedCount = 0;
-            gameTime = 120;
+            gameTime = 10;
         }
     });
 });
