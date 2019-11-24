@@ -163,6 +163,7 @@ function loginfun() {
 }
 
 function Guest() {
+    error.innerHTML = "";
     document.getElementById("Lbutton").style.display = "none";
     document.getElementById("Singupb").style.display = "none";
     document.getElementById("un").style.display = "none";

@@ -1,12 +1,15 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
+var table = document.getElementById("scoreTable");
 canvas.width = canvasWidth
 canvas.height = canvasHeight;
 context.font = "18px Sans-Serif";
 
 socket.on('drawPlayers', (players) => {
+  
   context.save();
   context.clearRect(0, 0, canvas.width, canvas.height);
+  resetTable();
   for (var i = 0, length = players.length; i < length; i++) {
     var p = players[i];
     if (p._username === username) {
@@ -17,6 +20,14 @@ socket.on('drawPlayers', (players) => {
   }
   context.restore();
 });
+
+function resetTable() {
+  table.innerHTML = "<tr><th>Player</th><th>Score</th></tr>";
+}
+
+function addToTable(name, score) {
+  table.innerHTML += "<tr><td>" + name + "</td><td>" + score + "</td></tr>";
+}
 
 function getPlayerImage(imgSrc) {
   var img = new Image();
@@ -42,8 +53,6 @@ function drawHighScore() {
     async: true,
     type: 'GET',
     url: '/api/scores/' + username,
-    // data: JSON.stringify(data),
-    // contentType: 'application/json',
     success: function (result) {
       document.getElementById("highScore").innerHTML = "HIGH SCORE: " + result.highScore;
     },
@@ -72,4 +81,5 @@ function drawOther(other) {
   var otherImage = getPlayerImage(other._image_src);
   drawUsername(other._username, other._xPosition, other._yPosition);
   drawPlayer(otherImage, other._xPosition, other._yPosition);
+  addToTable(other._username, other._score);
 }

@@ -46,6 +46,10 @@ class KeyHandler
         {
             this._leftPressed = true;
         }
+        else if (e.key == "s" || e.key == "KeyS") 
+        {
+            document.getElementById("scoreTable").style.display = "block";
+        }
     }
 
     keyUpHandler(e) 
@@ -65,6 +69,11 @@ class KeyHandler
         else if (e.key == "Left" || e.key == "ArrowLeft") 
         {
             this._leftPressed = false;
+        } 
+        else if (e.key == "s" || e.key == "KeyS") 
+        {
+            document.getElementById("scoreTable").style.display = "none";
         }
+        
     }
 }
