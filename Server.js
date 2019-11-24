@@ -76,7 +76,7 @@ io.on('connection', (socket) => {
 
         var index = getPlayerIndex(players, socket.id);
         //console.log(index);
-        if (gameTime == 0) {
+        if (gameTime > 0) {
         // update the players position and rotation
         if (keyHandler._upPressed && players[index].yPosition > 0) {
             players[index].yPosition -= players[index].speed;
