@@ -96,7 +96,7 @@ class KeyHandler
                 if (this._touchY < window.innerHeight / 2 + window.innerHeight / 8) 
                 {
                     this._rightPressed = true;
-                    this._downPressed = true;
+                    this._upPressed = true;
                 }
                 else  
                 {
@@ -105,11 +105,31 @@ class KeyHandler
             }
             if (this._touchX < window.innerWidth / 2 + window.innerWidth / 8) 
             {
-                
+                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 8) 
+                {
+                    this._leftPressed = true;
+                    this._downPressed = true;
+                }
+                if (this._touchY < window.innerHeight / 2 + window.innerHeight / 8) 
+                {
+                    this._leftPressed = true;
+                    this._upPressed = true;
+                }
+                else  
+                {
+                    this._leftPressed = true;
+                }
             }
             else 
             {
-
+                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 8) 
+                {
+                    this._downPressed = true;
+                }
+                else 
+                {
+                    this._upPressed = true;
+                }
             }
         }
         else if (e.type == "touchend" || e.type == "touchcancel")
