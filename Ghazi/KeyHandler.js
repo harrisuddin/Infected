@@ -80,7 +80,7 @@ class KeyHandler
     {
         if(e.type == "touchstart" || e.type == "touchmove" || e.type == "touchend" || e.type == "touchcancel") 
         {
-            var touch = e.originalEvent.touches[0] || e.changedTouches[0];
+            //var touch = e.originalEvent.touches[0] || e.changedTouches[0];
             this._leftPressed = true;
         }
     }
