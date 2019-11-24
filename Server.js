@@ -186,8 +186,8 @@ setInterval(() => {
     if (players.length > 0) {
         if (gameTime > 0) {
             gameTime--;
-            for ( var i= 0, i <= players.length; i++ ){
-              if !(players[i].isInfected){
+            for (var i = 0, length = players.length; i < length; i++) {
+              if (!players[i].isInfected){
                 players[i].score++;
               }
             }
