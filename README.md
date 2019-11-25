@@ -4,15 +4,15 @@ Infected is a simple MMOG where the infected have to chase the humans and turn t
 
 # How to run locally
 
-Step 1: Download the repo
-Step 2: Create a file called .env
-Step 3: Add the following lines to the .env file
-DB_HOST="Your DB Host"
-DB_USER="Your DB User"
-DB_PASSWORD="Your DB Password"
-DB_DATABASE="Your DB Database"
-Step 4: Run the command `npm install` in the directory of the repo
-Step 5: Run `npm start` to play
+* Step 1: Download the repo
+* Step 2: Create a file called .env
+* Step 3: Add the following lines to the .env file
+<br>DB_HOST="Your DB Host"
+<br>DB_USER="Your DB User"
+<br>DB_PASSWORD="Your DB Password"
+<br>DB_DATABASE="Your DB Database"
+* Step 4: Run the command `npm install` in the directory of the repo
+* Step 5: Run `npm start` to play
 
 # Game Plan
 
