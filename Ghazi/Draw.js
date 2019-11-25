@@ -44,7 +44,12 @@ function drawUsername(name, x, y) {
 }
 
 function drawScore(score) {
-  document.getElementById("scoreValue").innerHTML = "SCORE: " + score;
+  document.getElementById("scoreValue").innerHTML = score;
+  // if (!isGuest) {
+  //   if (document.getElementById("scoreValue").innerHTML > document.getElementById("highScoreValue").innerHTML) {
+  //     document.getElementById("highScoreValue").innerHTML = document.getElementById("scoreValue").innerHTML;
+  //   }
+  // }
 }
 
 function drawHighScore() {
@@ -54,13 +59,15 @@ function drawHighScore() {
     type: 'GET',
     url: '/api/scores/' + username,
     success: function (result) {
-      document.getElementById("highScore").innerHTML = "HIGH SCORE: " + result.highScore;
+      document.getElementById("highScoreValue").innerHTML = result.highScore;
     },
     error: function (xhr, status, error) {
-      document.getElementById("highScore").innerHTML = "HIGH SCORE: " + 0;
+      document.getElementById("highScoreValue").innerHTML = 0;
     }
   });
 }
+
+
 
 // translate the screen so that the player is in the center of the screen
 function centerScreen(player, img) {

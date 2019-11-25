@@ -44,7 +44,7 @@ server.listen(port, () => {
 
 var players = [];
 var infectedCount = 0;
-var gameTime = 10;
+var gameTime = 120;
 
 function getPlayerIndex(arr, id) {
     for (var i = 0, length = arr.length; i < length; i++) {
@@ -77,40 +77,40 @@ io.on('connection', (socket) => {
         var index = getPlayerIndex(players, socket.id);
         //console.log(index);
         if (gameTime > 0) {
-        // update the players position and rotation
-        if (keyHandler._upPressed && players[index].yPosition > 0) {
-            players[index].yPosition -= players[index].speed;
-            players[index].rotation = 0;
-            if (keyHandler._rightPressed && players[index].xPosition < 3840 - 75 - 60) {
+            // update the players position and rotation
+            if (keyHandler._upPressed && players[index].yPosition > 0) {
+                players[index].yPosition -= players[index].speed;
+                players[index].rotation = 0;
+                if (keyHandler._rightPressed && players[index].xPosition < 3840 - 75 - 60) {
+                    players[index].xPosition += players[index].speed;
+                    //players[socket.id].rotation = 45;
+                    players[index].rotation = 90;
+                } else if (keyHandler._leftPressed && players[index].xPosition > 0) {
+                    players[index].xPosition -= players[index].speed;
+                    //players[index].rotation = 315;
+                    players[index].rotation = 270;
+                }
+            } else if (keyHandler._rightPressed && players[index].xPosition < 3840 - 75 - 60) {
                 players[index].xPosition += players[index].speed;
-                //players[socket.id].rotation = 45;
                 players[index].rotation = 90;
+                if (keyHandler._downPressed && players[index].yPosition < 2160 - 75 - 60) {
+                    players[index].yPosition += players[index].speed;
+                    //players[index].rotation = 135;
+                    players[index].rotation = 90;
+                }
+            } else if (keyHandler._downPressed && players[index].yPosition < 2160 - 75 - 60) {
+                players[index].yPosition += players[index].speed;
+                players[index].rotation = 180;
+                if (keyHandler._leftPressed && players[index].xPosition > 0) {
+                    players[index].xPosition -= players[index].speed;
+                    //players[index].rotation = 225;
+                    players[index].rotation = 270;
+                }
             } else if (keyHandler._leftPressed && players[index].xPosition > 0) {
                 players[index].xPosition -= players[index].speed;
-                //players[index].rotation = 315;
                 players[index].rotation = 270;
             }
-        } else if (keyHandler._rightPressed && players[index].xPosition < 3840 - 75 - 60) {
-            players[index].xPosition += players[index].speed;
-            players[index].rotation = 90;
-            if (keyHandler._downPressed && players[index].yPosition < 2160 - 75 - 60) {
-                players[index].yPosition += players[index].speed;
-                //players[index].rotation = 135;
-                players[index].rotation = 90;
-            }
-        } else if (keyHandler._downPressed && players[index].yPosition < 2160 - 75 - 60) {
-            players[index].yPosition += players[index].speed;
-            players[index].rotation = 180;
-            if (keyHandler._leftPressed && players[index].xPosition > 0) {
-                players[index].xPosition -= players[index].speed;
-                //players[index].rotation = 225;
-                players[index].rotation = 270;
-            }
-        } else if (keyHandler._leftPressed && players[index].xPosition > 0) {
-            players[index].xPosition -= players[index].speed;
-            players[index].rotation = 270;
         }
-}
         if (typeof players[index] !== 'undefined') {
             // then update the image source
             players[index].setImageSource();
@@ -169,7 +169,7 @@ io.on('connection', (socket) => {
         // reset the game time if everyone leaves
         if (players.length == 0) {
             infectedCount = 0;
-            gameTime = 10;
+            gameTime = 120;
         }
     });
 });
@@ -184,15 +184,36 @@ setInterval(() => {
 // This is the game time counter
 setInterval(() => {
     if (players.length > 0) {
+        gameTime--;
         if (gameTime > 0) {
-            gameTime--;
             for (var i = 0, length = players.length; i < length; i++) {
-              if (!players[i].isInfected){
-                players[i].score++;
-              }
+                if (!players[i].isInfected) {
+                    players[i].score++;
+                }
             }
+        }
+        if (gameTime == -5) {
+            restartGame();
         }
         console.log(gameTime);
     }
     io.sockets.emit('gameTime', gameTime);
 }, 1000);
+
+function restartGame() {
+    var db = require('./Connection.js');
+    for (var i = 0, length = players.length; i < length; i++) {
+        players[i].randomizePos(3840 - 200, 2160 - 200);
+        players[i].score = 0;
+        // var addScoreQuery = "INSERT INTO Scores (name, score) VALUES (" + db.escape(players[i].username) + ", " + db.escape(players[i].score) + ")";
+        // db.query(addScoreQuery, (err, result, fields) => {
+        //     if (err) {
+        //         //res.status(400).json(err);
+        //         console.log(err);
+        //     } else {
+        //         //res.status(201).json(result);
+        //     }
+        // });
+    }
+    gameTime = 120;
+}

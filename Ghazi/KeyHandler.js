@@ -86,14 +86,14 @@ class KeyHandler
             this._touchX = e.touches[0].clientX;
             this._touchY = e.touches[0].clientY;
 
-            if (this._touchX > window.innerWidth / 2 + window.innerWidth / 8) 
+            if (this._touchX > window.innerWidth / 2 + window.innerWidth / 4) 
             {
-                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 8) 
+                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 4) 
                 {
                     this._rightPressed = true;
                     this._downPressed = true;
                 }
-                if (this._touchY < window.innerHeight / 2 + window.innerHeight / 8) 
+                if (this._touchY < window.innerHeight / 2 - window.innerHeight / 4) 
                 {
                     this._rightPressed = true;
                     this._upPressed = true;
@@ -103,14 +103,14 @@ class KeyHandler
                     this._rightPressed = true;
                 }
             }
-            if (this._touchX < window.innerWidth / 2 + window.innerWidth / 8) 
+            else if (this._touchX < window.innerWidth / 2 - window.innerWidth / 4)
             {
-                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 8) 
+                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 4) 
                 {
                     this._leftPressed = true;
                     this._downPressed = true;
                 }
-                if (this._touchY < window.innerHeight / 2 + window.innerHeight / 8) 
+                if (this._touchY < window.innerHeight / 2 - window.innerHeight / 4) 
                 {
                     this._leftPressed = true;
                     this._upPressed = true;
@@ -122,7 +122,7 @@ class KeyHandler
             }
             else 
             {
-                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 8) 
+                if (this._touchY > window.innerHeight / 2 + window.innerHeight / 4) 
                 {
                     this._downPressed = true;
                 }
@@ -134,7 +134,7 @@ class KeyHandler
         }
     }
 
-    touchEndHandler() 
+    touchEndHandler(e) 
     {
         if (e.type == "touchend" || e.type == "touchcancel")
         {

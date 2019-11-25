@@ -12,6 +12,8 @@ function play() {
   // if the player is not a guest then display their high score
   if (!isGuest) {
     drawHighScore(); // function in Draw.js
+  } else {
+    document.getElementById("highScore").style.display = "none";
   }
 }
 
@@ -27,10 +29,16 @@ function formatTime(time) {
 
 // Every second, update the game time
 socket.on('gameTime', (time) => {
-  if (time === 0) {
-    endScreen();
+  if (time < 0) {
+    document.getElementById("gameOver").innerHTML = "Game will restart in a few seconds. Please leave if you don't want to play.";
+    document.getElementById("gameOver").style.display = "block";
+    if (!isGuest && time == -1) {
+      sendNewScore();
+    }
+  } else {
+    document.getElementById("gameOver").style.display = "none";
+    document.getElementById("timer").innerHTML = "TIME REMAINING: " + formatTime(time);
   }
-  document.getElementById("timer").innerHTML = "TIME REMAINING: " + formatTime(time);
 });
 
 keyHandler = new KeyHandler();
@@ -41,7 +49,7 @@ document.addEventListener("keyup", (event) => {
   keyHandler.keyUpHandler(event);
 }, false);
 document.addEventListener("touchstart" || "touchmove", (event) => {
-  keyHandler.touchsStartHandler(event);
+  keyHandler.touchStartHandler(event);
 }, false);
 document.addEventListener("touchend" || "touchcancel", (event) => {
   keyHandler.touchEndHandler(event);
@@ -53,3 +61,31 @@ setInterval(() => {
     socket.emit('updatePlayer', keyHandler);
   }
 }, 1000 / 60);
+
+function sendNewScore() {
+
+  var score = document.getElementById("scoreValue").innerHTML;
+
+  var data = {
+    "username": username,
+    "score": parseInt(score)
+  };
+
+$.ajax({
+    async: true,
+    type: 'POST',
+    url: '/api/scores/',
+    data: JSON.stringify(data),
+    contentType: 'application/json',
+    // success: function (result) {
+    //     console.log(result);
+    // },
+    error: function (xhr, status, error) {
+        // var errorResponse = xhr.responseJSON;
+        // document.getElementById("error").innerHTML += errorResponse.message + "<br>";
+        // document.getElementById("error").style.display = "block";
+        // loginSignupValid = false;
+        console.log(xhr);
+    }
+});
+}
