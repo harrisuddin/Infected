@@ -5,7 +5,7 @@ Infected is a simple MMOG where the infected have to chase the humans and turn t
 # How to run locally
 
 * Step 1: Download the repo
-* Step 2: Create a file called .env
+* Step 2: Create a file called .env at the root of the directory
 * Step 3: Add the following lines to the .env file
 <br>DB_HOST="Your DB Host"
 <br>DB_USER="Your DB User"
