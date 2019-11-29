@@ -11,7 +11,7 @@ Infected is a simple MMOG where the infected have to chase the humans and turn t
 <br>DB_USER="Your DB User"
 <br>DB_PASSWORD="Your DB Password"
 <br>DB_DATABASE="Your DB Database"
-* Step 4: Run the command `npm install` in the directory of the repo
+* Step 4: Run the command `npm install` in the root of the directory
 * Step 5: Run `npm start` to play
 
 # Game Plan
